@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Account / Data Deletion Request — MovieMax</title>
+  <meta name="description" content="Request account or personal data deletion for MovieMax. Fill the form to submit a deletion request securely." />
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#ef4444; --muted:#94a3b8; --white:#ffffff;
+      --radius:12px; --maxw:780px; --gap:14px;
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0; background:linear-gradient(180deg,#091226 0%, #071225 100%); color:var(--white);
+      display:flex; align-items:center; justify-content:center; padding:32px; box-sizing:border-box;
+    }
+    .card{width:100%; max-width:var(--maxw); background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border-radius:var(--radius); padding:28px; box-shadow:0 8px 30px rgba(2,6,23,0.6);}
+    header{display:flex; gap:16px; align-items:center;}
+    .logo{width:56px;height:56px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;}
+    h1{margin:0;font-size:20px}
+    p.lead{color:var(--muted); margin:6px 0 18px}
+    form{display:grid; gap:var(--gap);}
+    .grid{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap);}
+    label{font-size:13px;color:var(--muted);}
+    input[type="text"], input[type="email"], textarea{width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:var(--white); box-sizing:border-box}
+    textarea{min-height:120px; resize:vertical}
+    .muted-note{font-size:13px;color:var(--muted)}
+    .actions{display:flex; gap:12px; align-items:center; justify-content:flex-end; margin-top:6px}
+    .btn{padding:10px 16px; border-radius:10px; cursor:pointer; border:0; font-weight:600}
+    .btn.primary{background:var(--accent); color:white}
+    .btn.ghost{background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--white)}
+    .warning{background:#3b0820; border-left:4px solid var(--accent); padding:12px; border-radius:8px; color:#ffc9d0}
+    .success{background:#072216; border-left:4px solid #10b981; padding:12px; border-radius:8px; color:#9be6c7}
+    .small{font-size:13px;color:var(--muted)}
+    .center{display:flex; align-items:center; gap:10px}
+    @media (max-width:700px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="card" role="main">
+    <header>
+      <div class="logo" aria-hidden>MM</div>
+      <div>
+        <h1>Request Account / Data Deletion</h1>
+        <p class="lead">Submit this form to request permanent deletion of your account and associated personal data from MovieMax.</p>
+      </div>
+    </header>
+
+    <div class="warning" style="margin-top:18px">
+      <strong>Important:</strong>
+      <div class="small" style="margin-top:6px">Submitting a deletion request will remove your account, forum posts, saved favorites and watchlists. This action is irreversible. We will attempt to verify your identity before processing.</div>
+    </div>
+
+    <form id="deleteForm" novalidate style="margin-top:18px">
+      <div class="grid">
+        <div>
+          <label for="fullname">Full name</label>
+          <input id="fullname" name="fullname" type="text" placeholder="Jane Doe" required />
+        </div>
+        <div>
+          <label for="email">Email address (used to sign in)</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required />
+        </div>
+      </div>
+
+      <div>
+        <label for="userid">User ID (optional)</label>
+        <input id="userid" name="userid" type="text" placeholder="Firebase UID or user ID" />
+        <div class="small muted-note">Providing your user ID speeds verification but is optional.</div>
+      </div>
+
+      <div>
+        <label for="reason">Reason for deletion (optional)</label>
+        <textarea id="reason" name="reason" placeholder="Why are you requesting deletion?" ></textarea>
+      </div>
+
+      <div>
+        <label for="confirm">Confirmation</label>
+        <div style="display:flex; gap:10px; align-items:center">
+          <input id="confirm" name="confirm" type="checkbox" required />
+          <div class="small">I confirm I want my MovieMax account and data permanently deleted. I understand this cannot be undone.</div>
+        </div>
+      </div>
+
+      <div>
+        <label for="authProof">Proof of account ownership (optional)</label>
+        <div class="small">If you cannot sign in, provide a screenshot of your profile page or the email received from MovieMax when registering. You may attach via the file upload endpoint after submission.</div>
+      </div>
+
+      <div style="display:flex; gap:12px; align-items:center; margin-top:6px">
+        <!-- Placeholder for CAPTCHA or reCAPTCHA widget -->
+        <div class="small">Security check (reCAPTCHA)</div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn ghost" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn primary">Submit Deletion Request</button>
+      </div>
+
+      <div id="result" aria-live="polite" style="margin-top:14px"></div>
+
+      <section style="margin-top:18px; border-top:1px dashed rgba(255,255,255,0.03); padding-top:14px">
+        <h3 style="margin:0 0 8px">Privacy & processing</h3>
+        <p class="small">We will use the provided email and identifiers to verify your request. After verification we will remove your account and associated user data from our systems in accordance with our <a href="#" style="color:var(--accent)">Privacy Policy</a>. You can contact <a href="mailto:support@moviemax.com" style="color:var(--accent)">support@moviemax.com</a> for questions.</p>
+      </section>
+
+    </form>
+  </main>
+
+  <script>
+    // Basic client-side validation and submit handler.
+    const form = document.getElementById('deleteForm');
+    const result = document.getElementById('result');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    cancelBtn.addEventListener('click', ()=>{
+      form.reset();
+      result.innerHTML = '';
+    })
+
+    function showMessage(type, html){
+      if(type==='success') result.innerHTML = `<div class="success">${html}</div>`;
+      else result.innerHTML = `<div class="warning">${html}</div>`;
+    }
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      result.innerHTML = '';
+
+      // Simple validation
+      const fullname = form.fullname.value.trim();
+      const email = form.email.value.trim();
+      const confirm = form.confirm.checked;
+
+      if(!fullname || !email){
+        showMessage('error','Please provide your full name and email.');
+        return;
+      }
+      if(!confirm){
+        showMessage('error','Please confirm deletion by checking the confirmation box.');
+        return;
+      }
+
+      // Construct payload
+      const payload = {
+        fullname,
+        email,
+        userId: form.userid.value.trim() || null,
+        reason: form.reason.value.trim() || null,
+        timestamp: new Date().toISOString()
+      };
+
+      try{
+        // Example: POST to your server endpoint that handles deletion requests
+        // Replace /api/delete-request with your real endpoint. Include auth tokens if user is signed in.
+        const resp = await fetch('/api/delete-request', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if(resp.status===200){
+          showMessage('success','We received your deletion request. Please check your email for verification steps.');
+          form.reset();
+        } else {
+          const body = await resp.json().catch(()=>null);
+          showMessage('error', body?.message || 'Server returned an error while processing your request.');
+        }
+
+      }catch(err){
+        showMessage('error','Could not send request. Please check your internet connection or try again later.');
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

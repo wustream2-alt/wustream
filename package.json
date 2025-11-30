@@ -1,0 +1,61 @@
+{
+  "name": "stream",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "migrate": "sequelize db:migrate",
+    "migrate:undo": "sequelize db:migrate:undo",
+    "migrate:undo:all": "sequelize db:migrate:undo:all",
+    "migrate:create": "sequelize migration:create --name"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vicali478/MovieMax.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vicali478/MovieMax/issues"
+  },
+  "homepage": "https://github.com/vicali478/MovieMax#readme",
+  "dependencies": {
+    "@ngrok/ngrok": "^1.5.1",
+    "axios": "^1.9.0",
+    "axios-cookiejar-support": "^6.0.2",
+    "cheerio": "^1.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1",
+    "fflate": "^0.8.2",
+    "firebase": "^12.6.0",
+    "firebase-admin": "^13.6.0",
+    "geoip-lite": "^1.4.10",
+    "http-proxy": "^1.18.1",
+    "https-proxy-agent": "^7.0.6",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.1",
+    "nedb-promises": "^6.2.3",
+    "node-fetch": "^3.3.2",
+    "node-zstandard": "^1.2.4",
+    "qs": "^6.14.0",
+    "save": "^2.9.0",
+    "sequelize": "^6.37.7",
+    "simple-zstd": "^1.4.2",
+    "slugify": "^1.6.6",
+    "stream-json": "^1.9.1",
+    "tough-cookie": "^5.1.2",
+    "uuid": "^13.0.0",
+    "yt-stream": "^1.7.4",
+    "ytdl-core": "^4.11.5",
+    "zstddec": "^0.1.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.6.1",
+    "nodemon": "^3.1.10",
+    "sequelize-cli": "^6.6.3"
+  }
+}

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WUSTREAM - Movie Search</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #0f1720;
+      --muted: #9aa6b2;
+      --accent: #ff5c5c;
+      --accent-2: #5ce0ff;
+      --text: #e6eef6;
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-2: rgba(255, 255, 255, 0.02);
+      --card-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+      --radius: 10px;
+      --max-width: 1200px;
+      --transition: 200ms cubic-bezier(.2, .9, .3, 1);
+      --focus-ring: 0 0 0 3px rgba(92, 224, 255, 0.12);
+      --warning: #ffb86b;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1124&q=100');
+      background-attachment: fixed;
+      /* Keeps the background image in place */
+      background-size: cover;
+      /* Ensures the image covers the container */
+      background-repeat: no-repeat;
+      color: white;
+    }
+
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    .main-container {
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(1, 2, 4, 0.89);
+    }
+
+    .appbar {
+      display: flex;
+      align-items: center;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      padding-bottom: 20px;
+      padding-top: 20px;
+      background-color: rgb(107, 4, 13);
+      flex-shrink: 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(17, 25, 40, 0.94);
+    }
+
+    .appbar a {
+      margin: 0 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, green 0%, white 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.3s ease;
+    }
+
+    .appbar a:hover {
+      transform: scale(1.05);
+    }
+
+
+    .appbar a.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .search-bar {
+      margin-left: 5%;
+      width: 60%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .search-bar input {
+      width: 60%;
+      padding: 12px 16px;
+      border-radius: 25px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .search-bar input:focus {
+      outline: none;
+      border-color: rgb(4, 107, 4);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 20px rgba(248, 7, 100, 0.3);
+    }
+
+    .search-bar input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .search-bar button {
+      margin-left: 10px;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, var(--accent), #ff8a8a);
+      border: none;
+      color: #fff;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(248, 7, 100, 0.3);
+    }
+
+    .search-bar button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(248, 7, 100, 0.4);
+    }
+
+    .results-container {
+
+      overflow-y: auto;
+      /* Enables vertical scrolling */
+      flex-grow: 1;
+      /* Allows the lower div to fill the remaining space */
+      width: 97%;
+      padding-top: 10px;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 10px;
+    }
+
+    .results-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .suggestion-card {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      padding: 15px;
+      background: rgba(17, 25, 40, 0.6);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+
+    .suggestion-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      border-color: rgb(4, 107, 4);
+    }
+
+    .suggestion-card img {
+      width: auto;
+      height: 150px;
+      border-radius: 10px;
+    }
+
+    .movie-details {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: space-evenly;
+      padding: 10px;
+    }
+
+    .movie-title {
+      font-size: 14px;
+      text-align: center;
+      font-weight: bold;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      /* Limit to two lines */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .movie-genre {
+      font-size: 12px;
+      text-align: center;
+      font-weight: bold;
+      display: -webkit-box;
+      color: rgb(187, 186, 185);
+      -webkit-line-clamp: 1;
+      /* Limit to two lines */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .movie-year {
+      font-size: 12px;
+      text-align: center;
+      font-weight: bold;
+      display: -webkit-box;
+      color: rgb(187, 186, 185);
+      -webkit-line-clamp: 1;
+      /* Limit to two lines */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 768px) {
+      .search-bar {
+        margin-left: 10%;
+        width: 80%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .search-bar {
+        margin-left: 4%;
+        width: 92%;
+        margin-right: 4%;
+      }
+
+      .search-bar input {
+        width: 80%;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        font-size: 14px;
+      }
+
+      .appbar a {
+        display: none;
+      }
+
+    }
+
+    .loading {
+      display: flex;
+      justify-content: start;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .loading-indicator {
+      width: 60px;
+      height: 60px;
+      border-width: 1px;
+      border-color: aliceblue;
+      border: 1px solid rgb(167, 166, 166);
+      border-top: 1px solid rgb(212, 212, 212);
+      border-right: 1px solid rgb(240, 239, 239);
+      border-left: 1px solid white;
+      /* Active segment */
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      clip-path: polygon(50% 50%, 100% 0, 100% 100%, 50% 100%);
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .no-results p {
+      font-size: 1.2rem;
+      color: #aaa;
+      /* subtle gray */
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="main-container">
+    <div class="appbar">
+
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search for movies by title, genre, or year..."
+          oninput="debounceSearch(event)">
+        <button onclick="clearSearch()">Close</button>
+      </div>
+    </div>
+
+    <section id="searchResults" class="results-container">
+      <!-- Dynamic search results will be appended here -->
+      <div class="no-results">
+        <p>Type something to search...</p>
+      </div>
+    </section>
+  </main>
+  <script src="search.js"></script>
+</body>
+
+</html>

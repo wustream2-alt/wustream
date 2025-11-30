@@ -1,0 +1,25 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      { "source": "/privacy-policy", "destination": "/privacy-policy.html" },
+      { "source": "/terms-of-service", "destination": "/terms-of-service.html" },
+      { "source": "/copyright-policy", "destination": "/copyright-policy.html" },
+      { "source": "/contact", "destination": "/contact.html" },
+      { "source": "/about", "destination": "/about.html" },
+      { "source": "/faqs", "destination": "/faqs.html" },
+      { "source": "/delete-request", "destination": "/delete.html" },
+      { "source": "/api/**", "destination": "https://moviemax-b8cf.onrender.com/api/**" },
+      { "source": "/", "destination": "/index.html" }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(html)",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Movie & TV API — Professional Documentation</title>
+    <meta name="description" content="Full API documentation for Movie & TV read-only endpoints. Base URL, endpoints, examples, and copyable commands." />
+    <style>
+        :root{
+            --bg:#0f1724;
+            --card:#0b1220;
+            --muted:#94a3b8;
+            --accent:#00b4d8;
+            --ok:#10b981;
+            --danger:#ef4444;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+        }
+        html,body{
+            height:100%;
+            margin:0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg,#071029 0%, #071623 100%);
+            color:#e6eef8;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+        }
+        .container{
+            max-width:1100px;
+            margin:16px auto;
+            padding:20px;
+        }
+        header{
+            display:flex;
+            gap:18px;
+            align-items:center;
+            margin-bottom:18px;
+            flex-wrap:wrap;
+        }
+        header h1{
+            margin:0;
+            font-size:20px;
+            letter-spacing:0.2px;
+        }
+        .meta{
+            margin-left:auto;
+            text-align:right;
+            font-size:13px;
+            color:var(--muted);
+        }
+        .card{
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border:1px solid rgba(255,255,255,0.03);
+            padding:16px;
+            border-radius:10px;
+            box-shadow: 0 6px 20px rgba(2,6,23,0.6);
+        }
+        nav.toc{
+            margin:12px 0;
+            display:flex;
+            gap:8px;
+            flex-wrap:wrap;
+        }
+        nav.toc a{
+            padding:8px 12px;
+            background:rgba(255,255,255,0.02);
+            border-radius:8px;
+            color:var(--muted);
+            text-decoration:none;
+            font-size:13px;
+        }
+        section{ margin-top:16px; }
+        h2{ margin:8px 0 10px; font-size:16px; }
+        h3{ margin:12px 0 8px; font-size:14px; color:#dbeafe; }
+        p{ margin:6px 0; color:var(--muted); line-height:1.45; }
+        pre, code {
+            font-family: var(--mono);
+            font-size:13px;
+            background:rgba(255,255,255,0.02);
+            padding:10px;
+            border-radius:8px;
+            color:#dbeafe;
+            overflow:auto;
+            border:1px solid rgba(255,255,255,0.03);
+        }
+        .grid{
+            display:grid;
+            grid-template-columns: 1fr 320px;
+            gap:18px;
+            align-items:start;
+        }
+        .sidebar{
+            position:sticky;
+            top:22px;
+        }
+        .info-row{
+            display:flex;
+            gap:10px;
+            align-items:center;
+            margin:8px 0;
+            flex-wrap:wrap;
+        }
+        .pill{
+            font-size:12px;
+            padding:6px 8px;
+            border-radius:6px;
+            background:rgba(255,255,255,0.02);
+            color:var(--muted);
+            border:1px solid rgba(255,255,255,0.03);
+        }
+        .base-url{
+            display:flex;
+            gap:8px;
+            align-items:center;
+            margin-top:8px;
+        }
+        .btn{
+            background:var(--accent);
+            border:none;
+            color:#051622;
+            padding:8px 10px;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:600;
+            font-size:13px;
+        }
+        .btn.secondary{
+            background:transparent;
+            color:var(--muted);
+            border:1px solid rgba(255,255,255,0.03);
+        }
+        .endpoint{
+            display:flex;
+            gap:10px;
+            align-items:center;
+            margin:10px 0;
+            flex-wrap:wrap;
+        }
+        .method{
+            font-size:12px;
+            padding:6px 8px;
+            border-radius:6px;
+            background:rgba(255,255,255,0.02);
+            border:1px solid rgba(255,255,255,0.03);
+            color:var(--muted);
+            min-width:64px;
+            text-align:center;
+            font-weight:700;
+        }
+        .path{
+            font-family:var(--mono);
+            font-size:13px;
+            color:#dbeafe;
+            background:transparent;
+            padding:8px;
+            flex:1;
+            min-width:0;
+        }
+        .copy{
+            border:none;
+            background: rgba(255,255,255,0.02);
+            padding:8px;
+            border-radius:8px;
+            color:var(--muted);
+            cursor:pointer;
+            font-size:13px;
+        }
+        .note{
+            color:var(--muted);
+            font-size:13px;
+            margin-top:6px;
+        }
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:8px;
+            font-size:13px;
+            color:var(--muted);
+        }
+        th,td{
+            padding:8px;
+            border-bottom:1px solid rgba(255,255,255,0.02);
+            text-align:left;
+            vertical-align:top;
+        }
+        th{ color:#dbeafe; font-weight:700; font-size:13px; }
+        footer{
+            margin-top:26px;
+            font-size:13px;
+            color:var(--muted);
+            text-align:center;
+        }
+        .status-200{ color:var(--ok); font-weight:700; }
+        .status-400{ color:var(--danger); font-weight:700; }
+        .kbd{
+            background:rgba(255,255,255,0.02);
+            padding:4px 6px;
+            border-radius:4px;
+            font-family:var(--mono);
+            font-size:12px;
+            border:1px solid rgba(255,255,255,0.03);
+            color:#dbeafe;
+        }
+        .example{
+            margin-top:12px;
+            display:grid;
+            gap:8px;
+        }
+        .inline-input{
+            width:100%;
+            padding:8px;
+            border-radius:8px;
+            border:1px solid rgba(255,255,255,0.03);
+            background:rgba(255,255,255,0.01);
+            color:#dbeafe;
+            font-family:var(--mono);
+            font-size:13px;
+        }
+        .copy-success{
+            color:var(--ok);
+            margin-left:8px;
+            font-weight:700;
+        }
+        details summary{
+            cursor:pointer;
+            font-weight:700;
+            color:#dbeafe;
+            margin-top:10px;
+            outline:none;
+        }
+        .big-code{
+            max-height:360px;
+            overflow:auto;
+        }
+        .muted-block{
+            background:rgba(255,255,255,0.01);
+            border-radius:8px;
+            padding:10px;
+            color:var(--muted);
+            border:1px solid rgba(255,255,255,0.02);
+        }
+        .warn{
+            color:var(--danger);
+            font-weight:700;
+        }
+        .spacer{ height:6px; }
+
+        /* responsive */
+        @media (max-width: 900px) {
+            .grid{ grid-template-columns: 1fr; }
+            .sidebar{ position:static; }
+            header{ align-items:flex-start; }
+            .container{ margin:12px; padding:12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>🎬 Movie & TV API — Professional Documentation</h1>
+                <p style="margin:6px 0 0; color:var(--muted); font-size:13px;">
+                    Read-only API for movies and TV shows. Ready-to-copy endpoints, examples, and best practices.
+                </p>
+            </div>
+            <div class="meta">
+                <div>Base URL</div>
+                <div style="margin-top:6px;" class="pill"><span id="baseUrlText">https://api.wustream.com</span></div>
+            </div>
+        </header>
+
+        <div class="grid">
+            <main>
+                <section class="card">
+                    <h2>Summary</h2>
+                    <p>
+                        Purpose: Provide read-only endpoints for movies and TV shows, with search, grouping, trending, and download links.
+                        Audience: Frontend developers, integrators, and partners.
+                        Response format: JSON (or binary for direct downloads, e.g., .mp4).
+                    </p>
+
+                    <div class="info-row">
+                        <div class="pill">Authentication: API key</div>
+                        <div class="pill">Rate limit: standard (e.g., 1000 req/day)</div>
+                        <div class="pill">Content: movies & tv</div>
+                    </div>
+
+                    <div class="spacer"></div>
+                    <h3>Quick auth</h3>
+                    <p class="note">All requests require the header <span class="kbd">x-api-key: &lt;YOUR_API_KEY&gt;</span>.
+                        Missing or invalid key results in 401 Unauthorized.</p>
+
+                    <div class="spacer"></div>
+                    <h3>Table of contents</h3>
+                    <nav class="toc" aria-label="Table of contents">
+                        <a href="#auth">Authentication & headers</a>
+                        <a href="#models">Common concepts & models</a>
+                        <a href="#pagination">Pagination & filtering</a>
+                        <a href="#errors">Error responses</a>
+                        <a href="#movies">Movies endpoints</a>
+                        <a href="#tv">TV endpoints</a>
+                        <a href="#search">Search & explore</a>
+                        <a href="#examples">Examples</a>
+                        <a href="#sdks">Clients & SDKs</a>
+                        <a href="#best-practices">Best practices</a>
+                        <a href="#changelog">Changelog</a>
+                    </nav>
+                </section>
+
+                <!-- (rest of sections unchanged) -->
+                <!-- Authentication, models, pagination, errors, movies, tv, search, best-practices, examples kept as before -->
+                <!-- For brevity in this file they're included as the original content above, unchanged. -->
+                <!-- The content from the user's original document is preserved below. -->
+
+                <section id="auth" class="card" style="margin-top:18px;">
+                    <h2>Authentication & headers</h2>
+                    <p>All requests require two headers by default:</p>
+                    <table>
+                        <thead><tr><th>Header</th><th>Type</th><th>Required</th><th>Notes</th></tr></thead>
+                        <tbody>
+                            <tr><td>x-api-key</td><td>string</td><td>yes</td><td>Your API key — sent as a header</td></tr>
+                            <tr><td>Accept</td><td>string</td><td>yes</td><td>Use <code>application/json</code> for JSON responses; use other values to request binary downloads</td></tr>
+                            <tr><td>Accept-Language</td><td>string</td><td>no</td><td>Optional — e.g., <code>en-US</code> for localized content</td></tr>
+                        </tbody>
+                    </table>
+
+                    <div class="example">
+                        <div>
+                            <strong>Unauthorized response</strong>
+                        </div>
+                        <pre>{
+    "success": false,
+    "status": 401,
+    "message": "Unauthorized: missing or invalid API key"
+}</pre>
+                    </div>
+                </section>
+
+                <section id="models" class="card">
+                    <h2>Common concepts & models</h2>
+                    <p>Representative response objects for movies and TV shows. Fields may vary per endpoint. Download links may be the actual binary stream or a 302 redirect to a CDN.</p>
+
+                    <h3>Movie object (representative)</h3>
+                    <pre class="big-code">{
+    "id": 123,
+    "title": "Title",
+    "slug": "title-slug",
+    "genres": ["Action", "Sci-Fi"],
+    "genre_ids":[28,878],
+    "posterUrl":"https://cdn.example.com/posters/123.jpg",
+    "backdropUrl":"https://cdn.example.com/backdrops/123.jpg",
+    "synopsis":"Short description",
+    "releaseDate":"2024-09-01",
+    "runtime":120,
+    "mpaRating":"PG-13",
+    "voteAverage":8.5,
+    "voteCount":1500,
+    "casts":[{"name":"Actor","character":"Role","profileUrl":"https://..."}],
+    "crew":[{"name":"Director","job":"Director"}],
+    "videos":[{"type":"trailer","site":"YouTube","key":"..."}],
+    "downloadUrl":null
+}</pre>
+
+                    <h3>TV show object (representative)</h3>
+                    <pre class="big-code">{
+    "id":101,
+    "title":"Show Title",
+    "slug":"show-title",
+    "genres":["Drama"],
+    "firstAirDate":"2020-05-01",
+    "seasons":[
+        {"seasonNumber":1,"episodes":[
+            {"episodeNumber":1,"title":"Pilot","runtime":45,"airDate":"2020-05-01"}
+        ]}
+    ],
+    "posterUrl":"https://cdn.example.com/posters/show-101.jpg",
+    "voteAverage":8.0
+}</pre>
+
+                    <p class="note">Notes:
+                        <ul>
+                            <li>downloadUrl or downloadUrls may be binary streams or redirects (HTTP 302) to a CDN.</li>
+                            <li>Genres may be returned as names and/or IDs; check the specific endpoint's response.</li>
+                        </ul>
+                    </p>
+                </section>
+
+                <section id="pagination" class="card">
+                    <h2>Pagination & filtering</h2>
+                    <p>Most list endpoints support pagination and common query parameters.</p>
+
+                    <h3>Standard paginated response</h3>
+                    <pre>{
+    "success": true,
+    "page": 1,
+    "totalPages": 5,
+    "totalResults": 100,
+    "results": [ ... ]
+}</pre>
+
+                    <h3>Common query params</h3>
+                    <table>
+                        <thead><tr><th>Param</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td>page</td><td>integer</td><td>1</td><td>Page number</td></tr>
+                            <tr><td>limit</td><td>integer</td><td>varies</td><td>Items per page</td></tr>
+                            <tr><td>sort</td><td>string</td><td>popularity.desc</td><td>Sort string such as <code>popularity.desc</code> or <code>releaseDate.desc</code></td></tr>
+                            <tr><td>genre</td><td>string</td><td>—</td><td>Filter by genre name (case-insensitive)</td></tr>
+                            <tr><td>year</td><td>integer</td><td>—</td><td>Filter by release year</td></tr>
+                        </tbody>
+                    </table>
+
+                    <p class="note">Default page = 1. Endpoints that return lists support pagination unless noted otherwise.</p>
+                </section>
+
+                <section id="errors" class="card">
+                    <h2>Error responses</h2>
+                    <p>Standard error shape:</p>
+                    <pre>{
+    "success": false,
+    "status": 404,
+    "message": "Resource not found"
+}</pre>
+
+                    <h3>Common HTTP codes</h3>
+                    <ul>
+                        <li><strong>200</strong> — OK</li>
+                        <li><strong>400</strong> — Bad Request (invalid parameters)</li>
+                        <li><strong>401</strong> — Unauthorized (missing/invalid API key)</li>
+                        <li><strong>404</strong> — Not Found</li>
+                        <li><strong>429</strong> — Rate Limit Exceeded</li>
+                        <li><strong>500</strong> — Internal Server Error</li>
+                    </ul>
+                </section>
+
+                <section id="movies" class="card">
+                    <h2>Movies endpoints</h2>
+                    <p>All endpoints below require header <code>x-api-key</code>. For binary downloads set <code>Accept</code> appropriately.</p>
+
+                    <!-- Get movie by ID -->
+                    <div style="margin-top:10px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/movies/:id</div>
+                            <button class="copy" data-copy="https://api.wustream.com/movies/id/:id">Copy</button>
+                        </div>
+                        <p class="note">Description: Full movie details, cast/crew, videos, and available download links.</p>
+
+                        <details>
+                            <summary>Example requests</summary>
+                            <div style="margin-top:10px;">
+                                <strong>curl</strong>
+                                <pre>curl -H "x-api-key: YOUR_KEY" \
+    -H "Accept: application/json" \
+    "https://api.wustream.com/movies/id/123"</pre>
+
+                                <strong>fetch (TypeScript)</strong>
+                                <pre class="big-code">async function getMovieById(id: number, apiKey: string) {
+    const res = await fetch(`https://api.wustream.com/movies/id/${id}`, {
+        headers: { "x-api-key": apiKey, "Accept": "application/json" }
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+}</pre>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Other movie endpoints... (kept as original) -->
+                    <div style="margin-top:14px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/movies/trending/:page</div>
+                            <button class="copy" data-copy="https://api.wustream.com/movies/trending/:page">Copy</button>
+                        </div>
+                        <p class="note">Returns curated sections (featured, trendingToday, thisWeek, topRated). Example response contains categories with arrays of movies.</p>
+                        <pre>{
+    "category":"trendingToday",
+    "movies":[ ... ]
+}</pre>
+                    </div>
+
+                    <div style="margin-top:14px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/movies/grouped-by-year</div>
+                            <button class="copy" data-copy="https://api.wustream.com/movies/grouped-by-year">Copy</button>
+                        </div>
+                        <p class="note">Groups movies by release year (current → 2000).</p>
+                        <pre>{
+    "success": true,
+    "data":[{"year":2025,"movies":[...]}, ...]
+}</pre>
+                    </div>
+
+                    <div style="margin-top:14px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/movies/grouped-by-genre</div>
+                            <button class="copy" data-copy="https://api.wustream.com/movies/grouped-by-genre">Copy</button>
+                        </div>
+                        <p class="note">Returns groups keyed by genre from genres.json.</p>
+                    </div>
+
+                    <div style="margin-top:14px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/movies/az/:page?</div>
+                            <button class="copy" data-copy="https://api.wustream.com/movies/az/1">Copy</button>
+                        </div>
+                        <p class="note">Optional page parameter, default = 1. Sorted alphabetically.</p>
+                    </div>
+
+                    <div style="margin-top:14px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/movies/popular/:page?</div>
+                            <button class="copy" data-copy="https://api.wustream.com/movies/popular/1">Copy</button>
+                        </div>
+                        <p class="note">Popular movies list with pagination.</p>
+                    </div>
+
+                    <div style="margin-top:14px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/movies/category/:category/:page?</div>
+                            <button class="copy" data-copy="https://api.wustream.com/movies/category/topRated/1">Copy</button>
+                        </div>
+                        <p class="note">Params: category — key from categories.json (e.g., <code>topRated</code>, <code>nowPlaying</code>).</p>
+                    </div>
+
+                    <div style="margin-top:14px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/movies/year/:year/:page?</div>
+                            <button class="copy" data-copy="https://api.wustream.com/movies/year/2023/1">Copy</button>
+                        </div>
+                        <p class="note">Filter movies by release year.</p>
+                    </div>
+
+                    <div style="margin-top:14px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/movies/genre/:page? &nbsp; query: ?genre=&lt;name&gt;</div>
+                            <button class="copy" data-copy="https://api.wustream.com/movies/genre?page=1&genre=Action">Copy</button>
+                        </div>
+                        <p class="note">Example: <code>/movies/genre?page=1&genre=Action</code></p>
+                    </div>
+
+                    <div style="margin-top:14px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/movies/latest/:page?</div>
+                            <button class="copy" data-copy="https://api.wustream.com/movies/latest/1">Copy</button>
+                        </div>
+                        <p class="note">Newest releases sorted by <code>releaseDate</code> desc.</p>
+                    </div>
+
+                    <div style="margin-top:14px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/movies/:id/download/:quality</div>
+                            <button class="copy" data-copy="https://api.wustream.com/g/download/......">Copy</button>
+                        </div>
+                        <p class="note">Returns binary stream or HTTP 302 redirect to CDN. Use proper <code>Accept</code> header for binary downloads.</p>
+                        <details>
+                            <summary>Download example (curl)</summary>
+                            <pre>curl -H "x-api-key: YOUR_KEY" \
+    -H "Accept: video/mp4" \
+    -L "https://api.wustream.com/g/download/......" -o movie-123-720p.mp4
+</pre>
+                        </details>
+                    </div>
+                </section>
+
+                <section id="tv" class="card">
+                    <h2>TV shows endpoints</h2>
+                    <p>TV endpoints mirror movies behavior but include seasons and episodes.</p>
+
+                    <div style="margin-top:10px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/tvs/id/:id</div>
+                            <button class="copy" data-copy="https://api.wustream.com/tvs/id/:id">Copy</button>
+                        </div>
+                        <p class="note">Returns seasons and episodes with per-episode download URLs.</p>
+
+                        <details>
+                            <summary>Example response snippet</summary>
+                            <pre>{
+    "id":101,
+    "title":"Example Show",
+    "seasons":[
+        {"seasonNumber":1,"episodes":[
+            {"episodeNumber":1,"title":"Pilot"} 
+        ]}
+    ]
+}</pre>
+                        </details>
+                    </div>
+
+                    <div style="margin-top:10px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/tvs/trending</div>
+                            <button class="copy" data-copy="https://api.wustream.com/tvs/trending">Copy</button>
+                        </div>
+                        <p class="note">Trending TV shows curated lists.</p>
+                    </div>
+
+                    <div style="margin-top:10px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/tvs/grouped-by-year</div>
+                            <button class="copy" data-copy="https://api.wustream.com/tvs/grouped-by-year">Copy</button>
+                        </div>
+                        <p class="note">Groups TV shows by first air year.</p>
+                    </div>
+
+                    <div style="margin-top:10px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/tvs/grouped-by-genre</div>
+                            <button class="copy" data-copy="https://api.wustream.com/tvs/grouped-by-genre">Copy</button>
+                        </div>
+                        <p class="note">Groups keyed by genre.</p>
+                    </div>
+
+                    <div style="margin-top:10px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/tvs/az/:page?</div>
+                            <button class="copy" data-copy="https://api.wustream.com/tvs/az/1">Copy</button>
+                        </div>
+                        <p class="note">A–Z listing for TV shows.</p>
+                    </div>
+
+                    <div style="margin-top:10px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/tvs/popular/:page?</div>
+                            <button class="copy" data-copy="https://api.wustream.com/tvs/popular/1">Copy</button>
+                        </div>
+                        <p class="note">Popular TV shows.</p>
+                    </div>
+
+                    <div style="margin-top:10px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/tvs/category/:category/:page?</div>
+                            <button class="copy" data-copy="https://api.wustream.com/tvs/category/topRated/1">Copy</button>
+                        </div>
+                        <p class="note">Category-based TV lists.</p>
+                    </div>
+
+                    <div style="margin-top:10px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/tvs/year/:year/:page?</div>
+                            <button class="copy" data-copy="https://api.wustream.com/tvs/year/2022/1">Copy</button>
+                        </div>
+                        <p class="note">Filter TV shows by year.</p>
+                    </div>
+
+                    <div style="margin-top:10px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/tvs/genre/:page? &nbsp; query: ?genre=&lt;name&gt;</div>
+                            <button class="copy" data-copy="https://api.wustream.com/tvs/genre?page=1&genre=Drama">Copy</button>
+                        </div>
+                        <p class="note">Example: <code>/tvs/genre?page=1&genre=Drama</code></p>
+                    </div>
+
+                    <div style="margin-top:10px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/tvs/latest/:page?</div>
+                            <button class="copy" data-copy="https://api.wustream.com/tvs/latest/1">Copy</button>
+                        </div>
+                        <p class="note">Newest TV shows sorted by firstAirDate desc.</p>
+                    </div>
+
+                    <div style="margin-top:10px;">
+                        <div class="endpoint">
+                            <div class="method">GET</div>
+                            <div class="path">/tvs/:tvId/seasons/:season/episodes/:episode/download/:quality</div>
+                            <button class="copy" data-copy="https://api.wustream.com/g/download/......">Copy</button>
+                        </div>
+                        <p class="note">Episode binary stream or redirect. Use <code>-L</code> with curl to follow redirects.</p>
+                        <details>
+                            <summary>Episode download example</summary>
+                            <pre>curl -H "x-api-key: YOUR_KEY" \
+    -H "Accept: video/mp4" \
+    -L "https://api.wustream.com/g/download/......" \
+    -o show-101-s01e01-720p.mp4</pre>
+                        </details>
+                    </div>
+                </section>
+
+                <section id="search" class="card">
+                    <h2>Search & explore</h2>
+                    <p>Search endpoint supports title, type and page.</p>
+
+                    <div class="endpoint">
+                        <div class="method">GET</div>
+                        <div class="path">/explore/search</div>
+                        <button class="copy" data-copy="https://api.wustream.com/explore/search?title=matrix&page=1&type=movie">Copy</button>
+                    </div>
+
+                    <p class="note">Query params:
+                        <ul>
+                            <li><code>title</code> (required)</li>
+                            <li><code>page</code> (optional)</li>
+                            <li><code>type</code> (optional) — <code>movie</code> or <code>tv</code></li>
+                        </ul>
+                    </p>
+
+                    <pre>{
+    "success":true,
+    "page":1,
+    "totalPages":3,
+    "totalResults":35,
+    "results":[ ... ]
+}</pre>
+
+                    <details>
+                        <summary>Example usage</summary>
+                        <pre class="big-code">async function searchTitle(title: string, page = 1, type?: 'movie'|'tv', apiKey?: string) {
+    const params = new URLSearchParams({ title, page: String(page) });
+    if (type) params.set('type', type);
+    const res = await fetch(`https://api.wustream.com/explore/search?${params.toString()}`, {
+        headers: { "x-api-key": apiKey || 'YOUR_KEY', "Accept": "application/json" }
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+}</pre>
+                    </details>
+                </section>
+
+                <section id="best-practices" class="card">
+                    <h2>Additional notes & best practices</h2>
+                    <ul>
+                        <li>Always use HTTPS.</li>
+                        <li>Validate API key server-side and enforce rate limits.</li>
+                        <li>Filtered results typically exclude items missing posterUrl.</li>
+                        <li>For large downloads, the server may return a 302 redirect to a CDN; follow redirects.</li>
+                        <li>Use Accept-Language for localization where supported.</li>
+                        <li>Cache list endpoints (e.g., trending) for a short period to reduce load.</li>
+                    </ul>
+                </section>
+
+                <section id="examples" class="card">
+                    <h2>Examples (curl & TypeScript fetch)</h2>
+
+                    <h3>Get movie by ID (curl)</h3>
+                    <pre>curl -H "x-api-key: YOUR_KEY" \
+    -H "Accept: application/json" \
+    "https://api.wustream.com/movies/id/123"</pre>
+
+                    <h3>Search using fetch (TypeScript)</h3>
+                    <pre class="big-code">async function searchTitle(title: string, page = 1) {
+    const res = await fetch(`https://api.wustream.com/explore/search?title=${encodeURIComponent(title)}&page=${page}`, {
+        headers: { "x-api-key": "YOUR_KEY", "Accept": "application/json" }
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+}</pre>
+
+                    <h3>Typed client stub (minimal)</h3>
+                    <pre class="big-code">export interface ApiResult<T> {
+    success: boolean;
+    page?: number;
+    totalPages?: number;
+    totalResults?: number;
+    results?: T[];
+    status?: number;
+    message?: string;
+}
+
+export async function apiFetch<T>(path: string, apiKey: string) : Promise<T> {
+    const url = `https://api.wustream.com${path}`;
+    const res = await fetch(url, { headers: { "x-api-key": apiKey, "Accept": "application/json" } });
+    if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
+    return res.json();
+}
+
+// Example
+// const movie = await apiFetch<Movie>('/movies/id/123', 'YOUR_KEY');</pre>
+                </section>
+
+                <!-- New: Clients & SDKs -->
+                <section id="sdks" class="card">
+                    <h2>Clients & SDK examples</h2>
+                    <p class="note">Quick, copyable examples for Flutter (Dart), vanilla JavaScript, and React. Replace YOUR_KEY and BASE_URL as needed. These snippets are minimal and intended for integration starters.</p>
+
+                    <h3>Flutter (Dart) — simple widget to fetch a movie by id</h3>
+                    <pre class="big-code">import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class Movie {
+  final int id;
+  final String title;
+  final String posterUrl;
+  Movie({required this.id, required this.title, required this.posterUrl});
+  factory Movie.fromJson(Map&lt;String,dynamic&gt; j) => Movie(
+    id: j['id'],
+    title: j['title'] ?? '',
+    posterUrl: j['posterUrl'] ?? '',
+  );
+}
+
+Future&lt;Movie&gt; fetchMovie(int id, String apiKey, {String base = 'https://api.wustream.com'}) async {
+  final url = Uri.parse('$base/movies/id/$id');
+  final res = await http.get(url, headers: {
+    'x-api-key': apiKey,
+    'Accept': 'application/json',
+  });
+  if (res.statusCode == 200) {
+    return Movie.fromJson(json.decode(res.body));
+  }
+  throw Exception('Failed to load movie: ${res.statusCode}');
+}
+
+class MovieByIdWidget extends StatefulWidget {
+  final int id;
+  final String apiKey;
+  const MovieByIdWidget({required this.id, required this.apiKey, Key? key}): super(key:key);
+  @override _MovieByIdWidgetState createState() =&gt; _MovieByIdWidgetState();
+}
+
+class _MovieByIdWidgetState extends State&lt;MovieByIdWidget&gt; {
+  late Future&lt;Movie&gt; movie;
+  @override
+  void initState() {
+    super.initState();
+    movie = fetchMovie(widget.id, widget.apiKey);
+  }
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder&lt;Movie&gt;(
+      future: movie,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) return Center(child:CircularProgressIndicator());
+        if (snapshot.hasError) return Text('Error: ${snapshot.error}');
+        final m = snapshot.data!;
+        return ListTile(
+          leading: m.posterUrl.isNotEmpty ? Image.network(m.posterUrl, width:56, fit:BoxFit.cover) : null,
+          title: Text(m.title),
+          subtitle: Text('ID: ${m.id}'),
+        );
+      },
+    );
+  }
+}</pre>
+
+                    <h3>Vanilla JavaScript — small helper and usage</h3>
+                    <pre class="big-code">async function apiFetch(path, apiKey='YOUR_KEY', base='https://api.wustream.com') {
+  const url = path.startsWith('http') ? path : `${base.replace(/\/+$/,'')}/${path.replace(/^\/+/,'')}`;
+  const res = await fetch(url, { headers: { 'x-api-key': apiKey, 'Accept': 'application/json' }});
+  if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
+  return res.json();
+}
+
+// Usage
+apiFetch('/movies/trending/1', 'YOUR_KEY')
+  .then(data =&gt; console.log('trending', data))
+  .catch(err =&gt; console.error(err));</pre>
+
+                    <h3>React (function component) — fetch and render trending movies</h3>
+                    <pre class="big-code">// Example React component (use in CRA / Vite)
+import React, { useEffect, useState } from 'react';
+
+export default function TrendingMovies({ apiKey = process.env.REACT_APP_API_KEY, base = process.env.REACT_APP_BASE_URL || 'https://api.wustream.com' }) {
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() =&gt; {
+    let mounted = true;
+    (async () =&gt; {
+      try {
+        const res = await fetch(`${base.replace(/\/+$/,'')}/movies/trending/1`, {
+          headers: { 'x-api-key': apiKey || 'YOUR_KEY', 'Accept': 'application/json' }
+        });
+        if (!res.ok) throw new Error(await res.text());
+        const json = await res.json();
+        if (mounted) setMovies(json.movies || []);
+      } catch (e) {
+        if (mounted) setError(e.message || 'Error');
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+    return () =&gt; { mounted = false; };
+  }, [apiKey, base]);
+
+  if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+  if (error) return &lt;div style={{color:'salmon'}}&gt;{error}&lt;/div&gt;;
+
+  return &lt;div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(140px,1fr))',gap:12}}&gt;
+    {movies.map(m =&gt; (
+      &lt;div key={m.id} style={{background:'#071623',padding:8,borderRadius:8}}&gt;
+        &lt;img src={m.posterUrl} alt={m.title} style={{width:'100%',borderRadius:6}} /&gt;
+        &lt;div style={{marginTop:8,fontSize:13,fontWeight:700}}&gt;{m.title}&lt;/div&gt;
+        &lt;div style={{fontSize:12,color:'#94a3b8'}}&gt;{m.releaseDate || ''}&lt;/div&gt;
+      &lt;/div&gt;
+    ))}
+  &lt;/div&gt;;
+}</pre>
+
+                    <p class="note">Hints:
+                        <ul>
+                            <li>Store API keys server-side or in environment variables. Do not expose production keys in client bundles.</li>
+                            <li>For production React apps, use environment variables (REACT_APP_... / VITE_...).</li>
+                            <li>Follow redirects when downloading binary content (curl -L) or let the browser handle them for fetch requests.</li>
+                        </ul>
+                    </p>
+                </section>
+
+                <section id="changelog" class="card">
+                    <h2>Changelog</h2>
+                    <p class="muted-block"><strong>v1.0</strong> — Initial spec for movies & TV (endpoints, models, errors, examples).</p>
+                </section>
+
+            </main>
+
+            <aside class="sidebar">
+                <div class="card">
+                    <h3>Quick tools</h3>
+
+                    <label style="display:block; font-size:13px; color:var(--muted); margin-top:8px;">API Key</label>
+                    <input id="apiKeyInput" class="inline-input" placeholder="Enter your API key (for examples)" />
+
+                    <div class="spacer"></div>
+
+                    <label style="display:block; font-size:13px; color:var(--muted); margin-top:8px;">Base URL</label>
+                    <input id="baseUrlInput" class="inline-input" value="https://api.wustream.com" />
+
+                    <div style="margin-top:10px; display:flex; gap:8px;">
+                        <button id="applyBtn" class="btn">Apply</button>
+                        <button id="resetBtn" class="btn secondary">Reset</button>
+                    </div>
+
+                    <div style="margin-top:14px;">
+                        <div style="font-size:13px; color:var(--muted);">Quick curl builder</div>
+                        <select id="endpointSelect" class="inline-input" style="margin-top:8px;">
+                            <option value="/movies/id/123">GET /movies/:id</option>
+                            <option value="/movies/trending/1">GET /movies/trending/:page</option>
+                            <option value="/movies/g/download/...">GET /movies/g/download/...</option>
+                            <option value="/tvs/101">GET /tvs/id/:id</option>
+                            <option value="/g/download/......">GET episode download</option>
+                            <option value="/explore/search?title=matrix&page=1&type=movie">GET /explore/search</option>
+                        </select>
+
+                        <button id="buildCurl" class="btn" style="margin-top:8px;">Build curl</button>
+
+                        <pre id="curlOutput" style="margin-top:8px; white-space:pre-wrap;">Select endpoint and click "Build curl" to generate a ready-to-copy curl command.</pre>
+                    </div>
+
+                    <div style="margin-top:12px;">
+                        <div style="font-size:13px; color:var(--muted);">Copy any endpoint from the page</div>
+                        <div class="note" style="margin-top:6px;">Click the Copy buttons next to endpoints. The tool will use the base URL from the field above.</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:12px;">
+                    <h3>Status & Errors</h3>
+                    <table>
+                        <thead><tr><th>Code</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td class="status-200">200</td><td>OK — Successful request</td></tr>
+                            <tr><td class="status-400">400</td><td>Bad Request — Invalid parameters</td></tr>
+                            <tr><td class="status-400">401</td><td>Unauthorized — Missing or invalid key</td></tr>
+                            <tr><td class="status-400">404</td><td>Not Found</td></tr>
+                            <tr><td class="status-400">429</td><td>Rate limit exceeded</td></tr>
+                            <tr><td class="status-400">500</td><td>Internal Server Error</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card" style="margin-top:12px;">
+                    <h3>Quick links</h3>
+                    <div style="display:flex; flex-direction:column; gap:8px;">
+                        <a class="btn secondary" href="#movies">Movies endpoints</a>
+                        <a class="btn secondary" href="#tv">TV endpoints</a>
+                        <a class="btn secondary" href="#search">Search</a>
+                        <a class="btn secondary" href="#examples">Examples</a>
+                        <a class="btn secondary" href="#sdks">Clients & SDKs</a>
+                    </div>
+                </div>
+
+            </aside>
+        </div>
+
+        <footer>
+            <div>For further integration help, supply an API key and specify which endpoint(s) you'd like typed clients for.</div>
+            <div style="margin-top:6px; color:var(--muted); font-size:12px;">© Movie & TV API docs</div>
+        </footer>
+    </div>
+
+    <script>
+        (function(){
+            const baseTextEl = document.getElementById('baseUrlText');
+            const baseInput = document.getElementById('baseUrlInput');
+            const apiKeyInput = document.getElementById('apiKeyInput');
+            const applyBtn = document.getElementById('applyBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const endpointSelect = document.getElementById('endpointSelect');
+            const buildCurlBtn = document.getElementById('buildCurl');
+            const curlOutput = document.getElementById('curlOutput');
+
+            // Initialize values
+            const DEFAULT_BASE = 'https://api.wustream.com';
+            baseInput.value = DEFAULT_BASE;
+            baseTextEl.textContent = DEFAULT_BASE;
+
+            // Copy button logic on page for each endpoint
+            document.querySelectorAll('.copy').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const rawPath = btn.getAttribute('data-copy') || '';
+                    const base = baseInput.value || DEFAULT_BASE;
+                    const full = rawPath.startsWith('http') ? rawPath : (base.replace(/\/$/, '') + '/' + trimLeadingSlash(rawPath));
+                    try {
+                        await navigator.clipboard.writeText(full);
+                        flash(btn, 'Copied!');
+                    } catch(e){
+                        // fallback
+                        prompt('Copy endpoint (Ctrl+C/Cmd+C):', full);
+                    }
+                });
+            });
+
+            function trimLeadingSlash(s){ return s.replace(/^\/+/,''); }
+
+            function flash(el, text){
+                const original = el.textContent;
+                el.textContent = text;
+                setTimeout(()=> el.textContent = original, 1200);
+            }
+
+            applyBtn.addEventListener('click', () => {
+                const base = baseInput.value.trim() || DEFAULT_BASE;
+                baseTextEl.textContent = base;
+                flash(applyBtn, 'Applied');
+            });
+
+            resetBtn.addEventListener('click', () => {
+                baseInput.value = DEFAULT_BASE;
+                baseTextEl.textContent = DEFAULT_BASE;
+                apiKeyInput.value = '';
+                flash(resetBtn, 'Reset');
+            });
+
+            buildCurlBtn.addEventListener('click', () => {
+                const path = endpointSelect.value || '/movies/id/123';
+                const base = (baseInput.value || DEFAULT_BASE).replace(/\/$/, '');
+                const apiKey = apiKeyInput.value || 'YOUR_KEY';
+                const url = path.startsWith('http') ? path : (base + (path.startsWith('/') ? path : '/' + path));
+                const example = `curl -H "x-api-key: ${apiKey}" \\\n  -H "Accept: application/json" \\\n  "${url}"`;
+                curlOutput.textContent = example;
+            });
+
+            // Small keyboard shortcut for copying base URL: Alt+B
+            window.addEventListener('keydown', (e) => {
+                if (e.altKey && e.key.toLowerCase() === 'b') {
+                    navigator.clipboard && navigator.clipboard.writeText(baseInput.value || DEFAULT_BASE)
+                        .then(()=> flash(applyBtn,'Base Copied'))
+                        .catch(()=> {});
+                }
+            });
+
+            // Provide copy on code blocks (double-click)
+            document.querySelectorAll('pre').forEach(pre => {
+                pre.addEventListener('dblclick', () => {
+                    const text = pre.textContent;
+                    navigator.clipboard && navigator.clipboard.writeText(text).then(()=> {
+                        pre.style.border = '1px solid rgba(16,185,129,0.6)';
+                        setTimeout(()=> pre.style.border = '1px solid rgba(255,255,255,0.03)', 900);
+                    }).catch(()=> {});
+                });
+            });
+
+            // Friendly message in console with link
+            console.log('Movie & TV API docs loaded. Base URL:', DEFAULT_BASE);
+        })();
+    </script>
+</body>
+</html>

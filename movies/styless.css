@@ -1,0 +1,327 @@
+* {
+  margin: 0;
+}
+
+:root {
+  --primary: rgb(4, 107, 4);
+  --red: rgb(2, 129, 2);
+  --secondary: #222;
+  --accent: #f5f5f5;
+  --text: #222;
+  --muted: #888;
+  --border: #e0e0e0;
+  --bg: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.bg-pink {
+  background: var(--primary);
+  color: var(--secondary);
+}
+
+.text-pink {
+  color: var(--primary);
+}
+
+.btn-pink {
+  background: var(--primary);
+  color: var(--secondary);
+}
+
+.btn-outline-pink {
+  border-color: var(--primary);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: rgb(8, 167, 8);
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.container {
+  width: 100%;
+  background-color: #000000;
+  min-height: calc(100vh - 50px);
+  color: white;
+  margin: 0 !important;
+}
+
+
+.featured-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 45vh;
+  padding: 10px;
+  margin: 0 !important;
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+
+.featured-title {
+  font-size: 48px;
+  /* Larger font for prominence */
+  font-weight: bold;
+  /* Bold font for better visibility */
+  color: transparent;
+  /* Text color set to transparent */
+  background-image: linear-gradient(45deg, green, white);
+  /* More vibrant gradient colors */
+  background-clip: text;
+  /* Apply the gradient to the text */
+  -webkit-background-clip: text;
+  /* Webkit-specific support for gradient text */
+  text-transform: uppercase;
+  /* Uppercase letters for style */
+  letter-spacing: 3px;
+  /* Slight letter spacing for elegance */
+  padding: 10px;
+  max-width: 80%;
+  /* Adjust max width to prevent overflow */
+  word-wrap: break-word;
+  /* Ensure long words break appropriately */
+  z-index: 1;
+  /* Ensure it appears above other elements */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  /* Soft shadow to enhance visibility */
+}
+
+
+
+
+.featured-desc {
+  width: 500px;
+  color: lightgray;
+  margin: 30px 0;
+
+  display: -webkit-box;
+  /* Required for line clamping */
+  -webkit-box-orient: vertical;
+  /* Required for line clamping */
+  -webkit-line-clamp: 5;
+  /* Number of lines to show */
+  overflow: hidden;
+  /* Hide the rest of the text */
+  text-overflow: ellipsis;
+  /* Show ellipsis (...) */
+}
+
+
+.featured-button {
+  background-color: green;
+  width: 150px !important;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-weight: bold;
+}
+
+.movie-list-container {
+  padding: 5px 0px;
+}
+
+.movie-list-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.movie-list {
+  display: flex;
+  align-items: center;
+  overflow-x: scroll;
+  transition: all 1s ease-in-out;
+  overflow-y: hidden;
+}
+
+.movie-list::-webkit-scrollbar {
+  display: none;
+}
+
+.movie-list-item {
+  margin: 30px;
+  position: relative;
+}
+
+.movie-list-item:hover .movie-list-item-img {
+  transform: scale(1.2);
+  margin: 0 30px;
+  opacity: 0.2;
+}
+
+.movie-list-item:hover .movie-list-item-title,
+.movie-list-item:hover .movie-list-item-desc,
+.movie-list-item:hover .movie-list-item-button {
+  opacity: 1;
+}
+
+.movie-list-item-img {
+  transition: all 1s ease-in-out;
+  width: 270px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.movie-list-item-title {
+  padding: 0 10px;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  opacity: 0;
+  transition: 1s all ease-in-out;
+
+  white-space: nowrap;
+  /* Prevent text from wrapping */
+  overflow: hidden;
+  /* Hide any overflowing text */
+  text-overflow: ellipsis;
+  /* Add ellipsis (...) for overflowed text */
+  width: 180px;
+  /* Ensure the width is set to control text truncation */
+}
+
+
+.movie-list-item-desc {
+  font-size: 14px;
+  position: absolute;
+  top: 30%;
+  left: 50px;
+  width: 230px;
+  opacity: 0;
+  transition: 1s all ease-in-out;
+
+  display: -webkit-box;
+  /* Create a flexible box layout */
+  -webkit-line-clamp: 4;
+  /* Limit to 6 lines */
+  -webkit-box-orient: vertical;
+  /* Set box orientation to vertical */
+  overflow: hidden;
+  /* Hide the overflowing text */
+  text-overflow: ellipsis;
+  /* Add ellipsis (...) for overflowed text */
+}
+
+
+.movie-list-item-button {
+  padding: 10px;
+  background-color: green;
+  color: white;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 20px;
+  left: 50px;
+  opacity: 0;
+  transition: 1s all ease-in-out;
+}
+
+.movie-list-title {
+  padding-left: 20px;
+}
+
+@media(max-width: 560px) {
+  .featured-title {
+    flex: 0 1 auto;
+    font-size: 28px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+  }
+
+  .movie-list-title {
+    font-size: 20px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+  }
+
+  .featured-desc {
+    width: 100%;
+    color: lightgray;
+    margin: 30px 0;
+  }
+
+  .movie-list-item {
+    margin: 10px;
+  }
+
+  .movie-list-item-img {
+    transition: all 1s ease-in-out;
+    width: auto;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  .movie-list-item:hover .movie-list-item-img {
+    transform: scale(1);
+    margin: 0;
+    opacity: 1;
+  }
+
+  .movie-list-item:hover .movie-list-item-desc,
+  .movie-list-item:hover .movie-list-item-button {
+    opacity: 0;
+    display: none;
+  }
+
+  .movie-list-item {
+    position: relative;
+  }
+
+  .movie-list-item-title {
+    opacity: 1;
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    background: #00000091;
+    left: 0;
+  }
+
+  .movie-list-item-title {
+    opacity: 1;
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    background: #00000091;
+    left: 0;
+    font-size: 14px;
+    text-align: center;
+    color: rgb(206, 205, 205) !important;
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+}
+
+@media(min-width: 560px) {
+  .movie-list-item-title {
+    top: 10%;
+    left: 50px;
+  }
+}

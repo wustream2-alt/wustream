@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trending Movies & TV Shows Online | WUSTREAM.COM | Browse by Genre, Year, Popularity</title>
+  <meta name="description"
+    content="Explore trending movies and TV shows online. Browse by genre, year, popularity, or title. Fast, and curated collections of movies and TV series." />
+  <link rel="canonical" href="https://films.wustream.com/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="WUSTREAM" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="WUSTREAM" />
+  <meta property="og:title" content="Trending Movies & TV Shows Online | wustream.com" />
+  <meta property="og:description"
+    content="Discover trending movies and TV shows online. Browse by genre, year, popularity, or title. Fast, and accessible collections for movies and TV series." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://films.wustream.com/" />
+  <meta property="og:image" content="https://films.wustream.com/logo.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Trending Movies & TV Shows Online | wustream.com" />
+  <meta name="twitter:description"
+    content="Discover trending movies and TV shows online. Browse by genre, year, popularity, or title." />
+  <meta name="twitter:image" content="https://films.wustream.com/logo.png" />
+
+  <!-- Hreflang (for multi-language support) -->
+  <link rel="alternate" href="https://films.wustream.com/" hreflang="en" />
+  <link rel="alternate" href="https://films.wustream.com/es/" hreflang="es" />
+
+  <!-- Structured Data: WebSite, CollectionPage, Breadcrumbs -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://films.wustream.com/#website",
+      "url": "https://films.wustream.com/",
+      "name": "WUSTREAM",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://films.wustream.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://films.wustream.com/#collection",
+      "url": "https://films.wustream.com/",
+      "name": "WUSTREAM Movies & TV Shows",
+      "isPartOf": { "@id": "https://films.wustream.com/#website" },
+      "description": "Browse trending movies, latest releases, popular titles, and curated genre collections on WUSTREAM. Optimized for fast search and discovery."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://films.wustream.com/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+  <link rel="stylesheet" href="style2.css">
+  <link rel="stylesheet" href="footer.css">
+</head>
+
+<body>
+  <div class="page" id="page">
+    <div class="page-inner">
+      <header class="site-header" role="banner" aria-label="WUSTREAM header">
+        <div class="brand" role="link" aria-label="WUSTREAM home" onclick="location.href='/'" tabindex="0">
+          <div class="logo" aria-hidden="true">W</div>
+          <div class="title">
+            <div class="name">WUSTREAM</div>
+            <div class="tag">Movies & TV Shows</div>
+          </div>
+        </div>
+
+        <div class="actions" role="search">
+
+          <a href="/search" class="search-input-link">
+            <form class="search-form" action="/search" method="get" role="search"
+              aria-label="Search movies and tv shows">
+              <input id="q" name="q" type="search" placeholder="Search movies, TV shows..."
+                aria-label="Search movies or TV shows" />
+              <button type="submit" aria-label="Search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.6" />
+                </svg>
+              </button>
+            </form>
+          </a>
+
+          <div class="type-toggle" role="tablist" aria-label="Select content type">
+            <button class="nav-link active" data-type="movies" aria-pressed="true">movies</button>
+            <button class="nav-link" data-type="tvs" aria-pressed="false">tvs</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="content" role="main" aria-labelledby="main-heading">
+        <aside class="sidebar" role="complementary" aria-label="Filters and type toggle">
+          <div class="card forum-card" role="navigation" aria-label="Content Type">
+            <h2>Forum</h2>
+            <div class="nav-actions" role="toolbar" aria-label="Header actions">
+              <button class="btn ghost" onclick="location.href='/login'">Browse</button>
+              <button class="btn primary" onclick="location.href='/register'">Sign in</button>
+            </div>
+          </div>
+
+          <div class="card" role="region" aria-label="Explore">
+            <h4>Explore</h4>
+            <div class="filters-list" id="filtersList">
+              <button data-target="Trending">Trending</button>
+              <button data-target="Popular">Popular</button>
+              <button data-target="Latest">Latest</button>
+              <button data-target="A_Z">A_Z</button>
+              <button data-target="Year">Year</button>
+              <button data-target="Genre">Genre</button>
+
+            </div>
+          </div>
+
+          <div class="card" role="region" aria-label="About">
+            <h4>About WUSTREAM</h4>
+            <p class="meta">Fast and privacy-friendly streaming directory. Browse curated lists and discover new
+              favorites.</p>
+          </div>
+        </aside>
+
+        <section class="content-area" aria-labelledby="main-heading">
+
+          <!-- Primary tabs expected by the JS -->
+          <ul id="tabs" class="movie-tabs-container" role="tablist" aria-label="Movie categories">
+            <li class="tab-item active">Trending</li>
+            <li class="tab-item">Popular</li>
+            <li class="tab-item">Latest</li>
+            <li class="tab-item">A_Z</li>
+            <li class="tab-item">Year</li>
+            <li class="tab-item">Genre</li>
+          </ul>
+
+          <!-- Carousel section — where JS will inject carousels and featured content -->
+          <div id="carouselSection" class="carousel-section" aria-live="polite"></div>
+
+          <!-- Section container — used for grid and textual lists -->
+          <div id="section-container" class="section-container" aria-live="polite"></div>
+
+          <!-- Pagination area -->
+          <nav id="pagination" class="movie-pagination" role="navigation" aria-label="Pagination"></nav>
+        </section>
+
+      </main>
+
+      <!-- Loading overlay (hidden by default) used by the JS -->
+      <div id="loadingOverlay" class="movie-loading-overlay" role="status" aria-hidden="true">
+        <div class="loader" aria-hidden="true"></div>
+        <div class="meta">Loading…</div>
+      </div>
+
+
+  <!-- Floating Install Button -->
+<div id="install-btn"
+     style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(90deg, #ff5c5c, #ff8a8a);
+        color: #fff;
+        padding: 14px 22px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        cursor: pointer;
+        z-index: 9990;
+        transition: transform .2s ease, box-shadow .2s ease;
+     "
+     onclick="window.location.href='/APK';">
+
+  Install App
+</div>
+
+      <footer class="footer" role="contentinfo" aria-label="Footer">
+        <div class="footer-container">
+
+          <!-- About -->
+          <div class="footer-section">
+            <h3 class="footer-title">About WUSTREAM</h3>
+            <p class="footer-text">
+              A premium movie & TV discovery platform that helps you explore, save, and track your favorite content.
+              All terms and conditions apply.
+            </p>
+
+            <div class="footer-tmdb">
+              <p class="footer-text-sm">
+                This product uses the TMDB API but is not endorsed or certified by TMDB.
+              </p>
+              <a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+                  alt="TMDB Logo" class="tmdb-logo">
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="footer-section">
+            <h3 class="footer-title">Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="/">Home</a></li>
+              <li><a href="/APK">GET APK</a></li>
+              <li><a href="/privacy">Privacy Policy</a></li>
+              <li><a href="/terms">Terms and conditions</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div class="footer-section">
+            <h3 class="footer-title">Contact Us</h3>
+            <ul class="footer-links">
+              <li><a href="mailto:support@wustream.com">support@wustream.com</a></li>
+              <li><a href="/contact">Contact Form</a></li>
+            </ul>
+          </div>
+
+          <!-- FAQ -->
+          <div class="footer-section">
+            <h3 class="footer-title">FAQs</h3>
+
+            <div class="faq-container">
+
+              <div class="faq-item">
+                <button class="faq-question">
+                  How to download a movie or show?
+                  <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                  <p>You can open any movie or TV show page and click the download button.
+                    Multiple video qualities may be available depending on the source.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question">
+                  Is WUSTREAM legal?
+                  <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                  <p>WUSTREAM does not host or store any content.
+                    We only index public metadata sourced from TMDB.
+                    External links and downloads belong to their respective owners.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question">
+                  How do I contact support?
+                  <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                  <p>You can reach us anytime at <a href="mailto:support@wustream.com">support@wustream.com</a>
+                    or use the contact form available on our site.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+          <p class="footer-copy">
+            © <span id="year"></span> WUSTREAM. All rights reserved.
+          </p>
+
+          <div>
+            <a href="/privacy" class="footer-bottom-link">Privacy Policy</a>
+            <span class="footer-dot">•</span>
+            <a href="/terms" class="footer-bottom-link">Terms of Use</a>
+            <span class="footer-dot">•</span>
+            <a href="/cookies" class="footer-bottom-link">Cookie Policy</a>
+          </div>
+        </div>
+      </footer>
+
+      <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        var filtersList = document.getElementById('filtersList');
+
+        if (filtersList) {
+          filtersList.addEventListener('click', function (e) {
+            var btn = e.target.closest('button[data-target]');
+            if (!btn) return;
+
+            var targetText = btn.getAttribute('data-target').trim().toLowerCase();
+            var tabs = document.getElementById('tabs');
+
+            if (tabs) {
+              var items = [...tabs.querySelectorAll('.tab-item')];
+              var match = items.find(it => it.textContent.trim().toLowerCase() === targetText);
+
+              if (match) {
+                match.click();
+              } else {
+                items[0].click(); // fallback
+              }
+            }
+          });
+        }
+      </script>
+    </div>
+  </div>
+
+  <noscript>
+    <div
+      style="position:fixed;bottom:0;left:0;right:0;background:#111;padding:12px;color:#fff;text-align:center;z-index:99999;">
+      JavaScript is required to browse WUSTREAM. Please enable JavaScript in your browser.
+    </div>
+  </noscript>
+  <script src="/index.js" defer></script>
+  <script src="/footer.js" defer></script>
+</body>
+
+</html>

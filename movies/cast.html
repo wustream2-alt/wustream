@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cast - DramaSpot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #030913 0%, #1a1a2e 100%);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .profile-image {
+      width: 150px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .cast-name {
+      font-size: 2.5rem;
+      margin-top: 1rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #f80764 0%, #ff6f00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cast-details {
+      max-width: 600px;
+      margin: 1.2rem auto;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #ccc;
+    }
+
+    .section-title {
+      margin: 3rem 0 1rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, #f80764 0%, #ff6f00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      border-bottom: 2px solid #f80764;
+      display: inline-block;
+      padding-bottom: 0.3rem;
+    }
+
+    .movies {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding: 1rem 0;
+      scroll-behavior: smooth;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .movies::-webkit-scrollbar {
+      display: none;
+    }
+
+    .movie-card {
+      flex: 0 0 auto;
+      width: 120px;
+    }
+
+    .movie-poster {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.2s;
+    }
+
+    .movie-poster:hover {
+      transform: scale(1.05);
+    }
+
+    .movie-title {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #ccc;
+      text-align: center;
+    }
+
+    .additional-details {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      color: #ddd;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .movie-card {
+        width: 100px;
+      }
+
+      .movie-poster {
+        height: 150px;
+      }
+
+      .movie-title {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .movie-card {
+        width: 90px;
+      }
+
+      .movie-poster {
+        height: 130px;
+      }
+
+      .movie-title {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="profileContainer">
+    <!-- Profile details will be injected here -->
+  </div>
+
+  <script>
+    const apiKey = '3e947e97612913c6ed560d0f554273e0';
+    const urlParams = new URLSearchParams(window.location.search);
+    const actorName = urlParams.get('name'); // Correct variable used
+    const profileContainer = document.getElementById('profileContainer');
+
+    if (!actorName) {
+      profileContainer.innerHTML = "<p>No actor specified in URL.</p>";
+    } else {
+      fetch(`https://api.themoviedb.org/3/search/person?api_key=${apiKey}&query=${encodeURIComponent(actorName)}`)
+        .then(response => response.json())
+        .then(data => {
+          const person = data.results[0];
+          if (person) {
+            const profileImage = document.createElement('img');
+            profileImage.src = 'https://image.tmdb.org/t/p/w300' + person.profile_path;
+            profileImage.alt = person.name;
+            profileImage.className = 'profile-image';
+
+            const name = document.createElement('div');
+            name.className = 'cast-name';
+            name.textContent = person.name;
+
+            const biography = document.createElement('div');
+            biography.className = 'cast-details';
+            biography.textContent = person.biography || 'No biography available.';
+
+            const additionalDetails = document.createElement('div');
+            additionalDetails.className = 'additional-details';
+
+            const gender = person.gender === 1 ? 'Female' : person.gender === 2 ? 'Male' : 'Other';
+            additionalDetails.innerHTML = `
+              <p><strong>Original Name:</strong> ${person.original_name}</p>
+              <p><strong>Known For Department:</strong> ${person.known_for_department}</p>
+              <p><strong>Gender:</strong> ${gender}</p>
+            `;
+
+            profileContainer.appendChild(profileImage);
+            profileContainer.appendChild(name);
+            profileContainer.appendChild(biography);
+            profileContainer.appendChild(additionalDetails);
+
+            const sectionTitle = document.createElement('div');
+            sectionTitle.className = 'section-title';
+            sectionTitle.textContent = 'Known for';
+            profileContainer.appendChild(sectionTitle);
+
+            const moviesContainer = document.createElement('div');
+            moviesContainer.className = 'movies';
+            profileContainer.appendChild(moviesContainer);
+
+            person.known_for.forEach(movie => {
+              const card = document.createElement('div');
+              card.className = 'movie-card';
+
+              const moviePoster = document.createElement('img');
+              moviePoster.className = 'movie-poster';
+              moviePoster.src = 'https://image.tmdb.org/t/p/w200' + movie.poster_path;
+              moviePoster.alt = movie.title || movie.name;
+
+              const movieTitle = document.createElement('div');
+              movieTitle.className = 'movie-title';
+              movieTitle.textContent = movie.title || movie.name;
+
+              card.appendChild(moviePoster);
+              card.appendChild(movieTitle);
+
+              card.addEventListener('click', () => {
+                fetch(`http://localhost:8080/api/movies/search/1?title=${encodeURIComponent(movie.title || movie.name)}`)
+                  .then(res1 => res1.json())
+                  .then(datas1 => {
+                    const movie = datas1.movies?.[0];
+                    if (movie) sendJson(movie);
+                  })
+                  .catch(error => console.error('Error fetching data:', error));
+              });
+
+              moviesContainer.appendChild(card);
+            });
+
+            fetch(`http://localhost:8080/api/movies/cast/${encodeURIComponent(actorName)}/1`)
+              .then(res => res.json())
+              .then(datas => {
+                const movies = datas.movies;
+                if (movies && movies.length > 0) {
+                  const sectionTitle2 = document.createElement('div');
+                  sectionTitle2.className = 'section-title';
+                  sectionTitle2.textContent = 'Participated In';
+                  profileContainer.appendChild(sectionTitle2);
+
+                  const moviesContainer2 = document.createElement('div');
+                  moviesContainer2.className = 'movies';
+                  profileContainer.appendChild(moviesContainer2);
+
+                  movies.forEach(movie => {
+                    const card = document.createElement('div');
+                    card.className = 'movie-card';
+
+                    const moviePoster = document.createElement('img');
+                    moviePoster.className = 'movie-poster';
+                    moviePoster.src = movie.imageLink;
+                    moviePoster.alt = movie.title;
+
+                    const movieTitle = document.createElement('div');
+                    movieTitle.className = 'movie-title';
+                    movieTitle.textContent = movie.title || movie.name;
+
+                    card.appendChild(moviePoster);
+                    card.appendChild(movieTitle);
+
+                    card.addEventListener('click', () => {
+                      sendJson(movie);
+                    });
+
+                    moviesContainer2.appendChild(card);
+                  });
+                }
+              })
+              .catch(error => console.error('Error fetching data:', error));
+          }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    }
+
+    function sendJson(data) {
+      localStorage.setItem('movieClicked', JSON.stringify(data));
+      window.location.href = 'details.html';
+    }
+  </script>
+
+</body>
+</html>

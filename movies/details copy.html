@@ -1,0 +1,1224 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trending Movies & TV Shows Online | WUSTREAM.COM | Browse by Genre, Year, Popularity</title>
+  <meta name="description"
+    content="Explore trending movies and TV shows online. Browse by genre, year, popularity, or title. Fast, and curated collections of movies and TV series." />
+  <link rel="canonical" href="https://films.wustream.com/" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="author" content="WUSTREAM" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:site_name" content="WUSTREAM" />
+  <meta property="og:title" content="Trending Movies & TV Shows Online | wustream.com" />
+  <meta property="og:description"
+    content="Discover trending movies and TV shows online. Browse by genre, year, popularity, or title. Fast, and accessible collections for movies and TV series." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://films.wustream.com/" />
+  <meta property="og:image" content="https://films.wustream.com/logo.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Trending Movies & TV Shows Online | wustream.com" />
+  <meta name="twitter:description"
+    content="Discover trending movies and TV shows online. Browse by genre, year, popularity, or title." />
+  <meta name="twitter:image" content="https://films.wustream.com/logo.png" />
+
+  <!-- Hreflang (for multi-language support) -->
+  <link rel="alternate" href="https://films.wustream.com/" hreflang="en" />
+  <link rel="alternate" href="https://films.wustream.com/es/" hreflang="es" />
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Optional Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #0f1720;
+      --muted: #9aa6b2;
+      --accent: #ff5c5c;
+      --accent-2: #5ce0ff;
+      --text: #e6eef6;
+      --glass: rgba(255, 255, 255, 0.03);
+      --glass-2: rgba(255, 255, 255, 0.02);
+      --card-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+      --radius: 10px;
+      --hero-height: min(56vh, 520px);
+      --max-width: 1200px;
+      --transition: 200ms cubic-bezier(.2, .9, .3, 1);
+      --focus-ring: 0 0 0 3px rgba(92, 224, 255, 0.12);
+      --warning: #ffb86b;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --syn-line-height: 1.4;
+      /* line height in rem units */
+      --syn-font-size: 0.95rem;
+      /* font size used in ep-synopsis */
+      --syn-lines: 23;
+      /* number of visible lines */
+    }
+
+    body {
+      background: #0f1724;
+      color: #e6eef8;
+    }
+
+    .hero {
+      position: relative;
+      height: var(--hero-height);
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      padding: 24px 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(9, 10, 14, 0.85) 20%, rgba(9, 10, 14, 0.5) 60%, rgba(9, 10, 14, 0.95) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .poster {
+      width: 160px;
+      max-width: 30vw;
+      min-width: 110px;
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(2, 6, 23, 0.8);
+      border: 3px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .muted {
+      color: #9aa8bf;
+    }
+
+    .provider-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .scroll-row {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .card-dark {
+      background: linear-gradient(180deg, rgba(17, 24, 39, 0.6), rgba(2, 6, 23, 0.6));
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: #e6eef8;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    a.card-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .badge-muted {
+      background: rgba(255, 255, 255, 0.06);
+      color: #c6d3e6;
+    }
+
+    .section-title {
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 32px 0;
+      color: #9aa8bf;
+    }
+
+    @media (max-width: 576px) {
+      .poster {
+        width: 120px;
+      }
+
+      .hero {
+        padding: 16px;
+      }
+    }
+
+    .movie-backdrop {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      height: 200px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .movie-backdrop::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 72px;
+      color: #fff;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .movie-backdrop:hover .play-button {
+      opacity: 1;
+    }
+
+    @media (min-width: 768px) {
+      .movie-backdrop {
+        height: 370px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      #content {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .syAc {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .syac2 {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+    }
+
+    /* small helpers */
+    .hero-actions .btn {
+      min-width: 110px;
+    }
+
+    .seasons-tab {
+      display: flex;
+      overflow: scroll;
+    }
+
+    .seasons-tab::-webkit-scrollbar {
+      display: none;
+    }
+
+    .seasons-tab-item {
+      flex: 1 0 auto;
+      gap: 5px;
+      padding: 5px;
+    }
+
+    .seasons-tab-item.card-dark .seasons-tab-button {
+
+      padding: 5 10px;
+      color: gray;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .seasons-tab-item.active.card-dark .seasons-tab-button {
+
+      padding: 5 10px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--accent);
+    }
+
+    /* Fully dark modal content */
+    #detailsModal .modal-content {
+      background-color: #0d0d0d !important;
+      /* remove any borders */
+    }
+
+
+    /* Scrollable modal body */
+    #detailsModal .modal-body {
+      max-height: 90vh;
+      /* adjust height */
+      overflow-y: auto;
+      padding-right: 1rem;
+      /* space for scrollbar */
+    }
+
+    /* Custom professional scrollbar for Webkit browsers */
+
+
+    #detailsModal .modal-body::-webkit-scrollbar-thumb:hover {
+      background-color: #888;
+    }
+
+    /* Firefox scrollbar */
+    #detailsModal .modal-body {
+      scrollbar-width: thin;
+      scrollbar-color: #555 transparent;
+    }
+
+    aside {
+      position: sticky;
+      top: 30px;
+      max-height: 90vh;
+      overflow: auto;
+      border: solid rgba(114, 109, 109, 0.747) 1px;
+      border-radius: 10px;
+      padding: 10px !important;
+    }
+
+    aside::-webkit-scrollbar {
+      display: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent), #ff8a8a) !important;
+      color: #031017 !important;
+      border: 1px solid rgba(0, 0, 0, 0.12) !important;
+      box-shadow: 0 6px 22px rgba(255, 92, 92, 0.12) !important;
+    }
+
+    /* Overlay background */
+    #loadingModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.911);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    /* Show class */
+    #loadingModal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Inner box */
+    .loadingBox {
+      background: #111;
+      padding: 30px 40px;
+      border-radius: 12px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #444;
+      border-top-color: #ff3d71;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .ep-synopsis {
+      position: relative;
+      font-size: var(--syn-font-size);
+      line-height: var(--syn-line-height);
+      color: #e6eef6;
+      /* Primary clamp for WebKit/Chromium/Safari */
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: var(--syn-lines);
+      overflow: hidden;
+
+      /* Fallback (non-WebKit): limit height to N lines */
+      /* multiply font-size (in rem) by line-height and number of lines.
+         Using rem here so it scales correctly with font-size. */
+      max-height: calc(var(--syn-font-size) * var(--syn-line-height) * var(--syn-lines));
+      /* ensure any trailing content is clipped */
+      text-overflow: ellipsis;
+      /* optional smooth wrapping */
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    /* subtle gradient to indicate more content available */
+    .ep-synopsis::after {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: calc(var(--syn-line-height) * 1.6rem);
+      /* cover ~1.5 lines */
+      background: linear-gradient(180deg, rgba(11, 15, 20, 0) 0%, rgba(11, 15, 20, 0.85) 100%);
+      /* hide gradient when content height is small (no overflow) */
+      display: block;
+    }
+
+    /* remove gradient when content is shorter than clamp (no overflow) */
+    .ep-synopsis[data-clamped="false"]::after {
+      display: none;
+    }
+
+    /* small utility if you want a "read more" button inside the same box */
+    .ep-synopsis .read-more {
+      display: inline-block;
+      margin-top: .5rem;
+      color: #5ce0ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+
+  <link rel="stylesheet" href="/footer.css">
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <header id="hero" class="hero mb-4">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <div class="row g-3 align-items-end">
+        <div class="col-auto">
+          <img id="poster" class="poster" src="" alt="Poster">
+        </div>
+        <div class="col">
+          <h1 id="title" class="display-6 mb-1"></h1>
+          <div class="mb-2">
+            <span id="titleLong" class="muted"></span>
+          </div>
+          <div class="d-flex flex-wrap gap-2 align-items-center">
+            <span id="metaBadges" class="d-flex gap-2"></span>
+            <div id="rating" class="ms-2 muted"></div>
+          </div>
+          <div class="mt-2 muted" id="tagline"></div>
+
+          <div class="mt-3 d-flex flex-wrap gap-2 hero-actions">
+            <a id="watchBtn" class="btn btn-primary btn-sm d-none" href="#" role="button"><i
+                class="bi bi-play-fill"></i> Watch</a>
+            <a id="downloadBtnHero" target="_blank" rel="noopener" class="btn btn-outline-light btn-sm d-none"><i
+                class="bi bi-download"></i> Download</a>
+            <a id="homepageBtn" class="btn btn-outline-light btn-sm d-none" target="_blank" rel="noopener"><i
+                class="bi bi-box-arrow-up-right"></i> Homepage</a>
+            <a id="tmdbBtn" class="btn btn-outline-light btn-sm d-none" target="_blank" rel="noopener"><i
+                class="bi bi-film"></i> TMDB</a>
+            <a id="showDetails" class="btn btn-outline-light btn-sm" data-bs-toggle="modal"
+              data-bs-target="#detailsModal"><i class="bi bi-info-circle"></i> Details</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container pb-5">
+    <div id="loading" class="d-flex justify-content-center py-5">
+      <div class="spinner-border text-light" role="status"><span class="visually-hidden">Loading...</span></div>
+    </div>
+
+    <div id="content" class="d-none">
+
+      <!-- Synopsis & Actions -->
+      <div class="row syAc g-4 mb-4">
+
+        <div class="col-12 syac2 col-lg-8">
+          <div id="watchSection" class="card-dark d-none">
+            <div id="videoPlayerContainer" class="video-player-container"></div>
+            <!-- <h4 class="section-title p-2">Synopsis</h4> -->
+
+            <div class="row g-2 px-2 pb-2">
+              <div class="col-auto">
+                <!-- existing download button near synopsis (kept for episodes fallback) -->
+                <a id="downloadBtn" target="_blank" rel="noopener" class="btn btn-outline-light btn-sm d-none"><i
+                    class="bi bi-house-door"></i> Download</a>
+              </div>
+              <div class="col-auto">
+                <a id="showDetailsAlt" class="btn btn-outline-light btn-sm" data-bs-toggle="modal"
+                  data-bs-target="#detailsModal"><i class="bi bi-info-circle"></i> Details</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- seasons should scroll horizontally as tabs while episodes remain vertically  -->
+          <!-- Seasons -->
+          <div class="mt-4" id="seasonsContainer"></div>
+
+
+          <div class="card card-dark p-3 mt-0">
+            <h6 class="section-title">Recommendations</h6>
+            <div id="recommendations" class="row row-cols-2 row-cols-md-3 g-3 mt-2"></div>
+          </div>
+        </div>
+
+        <!-- Right column: details, providers, cast -->
+        <aside class="col-12 col-lg-4">
+          <div class="card card-dark p-3 mb-3">
+            <h6 class="section-title">Details</h6>
+            <ul class="list-unstyled mb-0">
+              <li><span class="muted">Type</span>: <span id="type" class="fw-semibold"></span></li>
+              <li><span class="muted">Year</span>: <span id="year" class="fw-semibold"></span></li>
+              <li><span class="muted">Runtime</span>: <span id="runtime" class="fw-semibold"></span></li>
+              <li><span class="muted">MPA Rating</span>: <span id="mpaRating" class="fw-semibold"></span></li>
+              <li><span class="muted">Vote</span>: <span id="voteAverage" class="fw-semibold"></span> (<span
+                  id="voteCount"></span> votes)</li>
+              <li><span class="muted">Popularity</span>: <span id="popularity"></span></li>
+              <li><span class="muted">Next Update</span>: <span id="next_update" class="muted"></span></li>
+            </ul>
+          </div>
+
+          <div class="card card-dark p-3 mb-3">
+            <h6 class="section-title">Genres</h6>
+            <div id="genres" class="mt-2 d-flex flex-wrap gap-2"></div>
+          </div>
+
+          <div class="card card-dark p-3 mb-3">
+            <h6 class="section-title">Production</h6>
+            <p class="muted mb-1">Companies</p>
+            <div id="productionCompanies" class="mb-2 muted"></div>
+            <p class="muted mb-1">Countries</p>
+            <div id="productionCountries" class="mb-2 muted"></div>
+            <p class="muted mb-1">Spoken Languages</p>
+            <div id="spokenLanguages" class="muted"></div>
+          </div>
+
+          <div class="card card-dark p-3 mb-3">
+            <h6 class="section-title">Watch Providers</h6>
+            <div class="scroll-row mt-2 d-flex gap-2 flex-nowrap" id="providersRow"></div>
+          </div>
+        </aside>
+
+      </div>
+
+
+      <hr class="border-light">
+    </div>
+  </main>
+
+  <!-- Loading Modal Overlay -->
+  <div id="loadingModal">
+    <div class="loadingBox">
+      <div class="spinner"></div>
+      <p>Loading...</p>
+    </div>
+  </div>
+
+  <!-- Details Modal -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content card-dark">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="detailsModalLabel">Details</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="detailsModalBody">
+          <!-- populated dynamically -->
+          <div id="detailsContent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Player Modal (for youtube or external embeds) -->
+  <div class="modal fade" id="playerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content bg-black">
+        <div class="modal-body p-0">
+          <div class="ratio ratio-16x9" id="playerContainer"></div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-outline-light btn-sm" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer" role="contentinfo" aria-label="Footer">
+    <div class="footer-container">
+
+      <!-- About -->
+      <div class="footer-section">
+        <h3 class="footer-title">About WUSTREAM</h3>
+        <p class="footer-text">
+          A premium movie & TV discovery platform that helps you explore, save, and track your favorite content.
+          All terms and conditions apply.
+        </p>
+
+        <div class="footer-tmdb">
+          <p class="footer-text-sm">
+            This product uses the TMDB API but is not endorsed or certified by TMDB.
+          </p>
+          <a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer">
+            <img
+              src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+              alt="TMDB Logo" class="tmdb-logo">
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-section">
+        <h3 class="footer-title">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="/trending">Trending</a></li>
+          <li><a href="/popular">Popular</a></li>
+          <li><a href="/explore">Explore</a></li>
+          <li><a href="/favorites">My Favorites</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-section">
+        <h3 class="footer-title">Contact Us</h3>
+        <ul class="footer-links">
+          <li><a href="mailto:support@wustream.com">support@wustream.com</a></li>
+          <li><a href="/contact">Contact Form</a></li>
+        </ul>
+      </div>
+
+      <!-- FAQ -->
+      <div class="footer-section">
+        <h3 class="footer-title">FAQs</h3>
+
+        <div class="faq-container">
+
+          <div class="faq-item">
+            <button class="faq-question">
+              How to download a movie or show?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>You can open any movie or TV show page and click the download button.
+                Multiple video qualities may be available depending on the source.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Is WUSTREAM legal?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>WUSTREAM does not host or store any content.
+                We only index public metadata sourced from TMDB.
+                External links and downloads belong to their respective owners.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              How do I contact support?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>You can reach us anytime at <a href="mailto:support@wustream.com">support@wustream.com</a>
+                or use the contact form available on our site.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">
+        © <span id="year"></span> WUSTREAM. All rights reserved.
+      </p>
+
+      <div>
+        <a href="/privacy" class="footer-bottom-link">Privacy Policy</a>
+        <span class="footer-dot">•</span>
+        <a href="/terms" class="footer-bottom-link">Terms of Use</a>
+        <span class="footer-dot">•</span>
+        <a href="/cookies" class="footer-bottom-link">Cookie Policy</a>
+      </div>
+    </div>
+  </footer>
+  <!-- Bootstrap & Popper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // MovieMax — movie_details.html
+    (function () {
+
+      // Variables to hold trailer info for download
+      let videoUrl = null;
+      let downloadUrl = null;
+      let name = '';
+
+      function showLoading() {
+        document.getElementById("loadingModal").classList.add("active");
+      }
+
+      function hideLoading() {
+        document.getElementById("loadingModal").classList.remove("active");
+      }
+      showLoading();
+
+      const pathParts = window.location.pathname.split('/');
+      // ["", "movie", "22"]
+
+      const type = pathParts[1];
+      const id = pathParts[2];
+      const API_URL = id ? `/api/${type}s/id/${id}` : null;
+
+      const el = {
+        loading: document.getElementById('loading'),
+        content: document.getElementById('content'),
+        hero: document.getElementById('hero'),
+        heroContent: document.querySelector('.hero-content'),
+        poster: document.getElementById('poster'),
+        title: document.getElementById('title'),
+        titleLong: document.getElementById('titleLong'),
+        metaBadges: document.getElementById('metaBadges'),
+        rating: document.getElementById('rating'),
+        tagline: document.getElementById('tagline'),
+        homepageBtn: document.getElementById('homepageBtn'),
+        tmdbBtn: document.getElementById('tmdbBtn'),
+        type: document.getElementById('type'),
+        year: document.getElementById('year'),
+        runtime: document.getElementById('runtime'),
+        mpaRating: document.getElementById('mpaRating'),
+        voteAverage: document.getElementById('voteAverage'),
+        voteCount: document.getElementById('voteCount'),
+        popularity: document.getElementById('popularity'),
+        next_update: document.getElementById('next_update'),
+        genres: document.getElementById('genres'),
+        productionCompanies: document.getElementById('productionCompanies'),
+        productionCountries: document.getElementById('productionCountries'),
+        spokenLanguages: document.getElementById('spokenLanguages'),
+        recommendations: document.getElementById('recommendations'),
+        seasonsContainer: document.getElementById('seasonsContainer'),
+        watchBtn: document.getElementById('watchBtn'),
+        downloadBtnHero: document.getElementById('downloadBtnHero'),
+        downloadBtn: document.getElementById('downloadBtn'),
+        detailsContent: document.getElementById('detailsContent'),
+        playerContainer: document.getElementById('playerContainer')
+      };
+
+      function fmtDate(d) {
+        if (!d) return '-';
+        try {
+          const dt = new Date(d);
+          return dt.toLocaleDateString();
+        } catch (e) { return d; }
+      }
+      function fmtRuntime(mins) {
+        if (!mins && mins !== 0) return 'N/A';
+        const h = Math.floor(mins / 60);
+        const m = mins % 60;
+        return h ? `${h}h ${m}m` : `${m}m`;
+      }
+
+      function safeText(elm, txt) {
+        if (!elm) return;
+        elm.textContent = (txt === null || txt === undefined) ? '' : txt;
+      }
+
+      function createBadge(text) {
+        const s = document.createElement('span');
+        s.className = 'badge bg-light text-dark';
+        s.style.opacity = 0.92;
+        s.textContent = text;
+        return s;
+      }
+
+      function escapeHtml(s) {
+        if (s === null || s === undefined) return '';
+        return String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+      }
+
+      function build() {
+        el.loading.classList.add('d-none');
+        el.content.classList.remove('d-none');
+
+        // Hero/backdrop
+        if (movie.backdropUrl) {
+          el.hero.style.backgroundImage = `url('${movie.backdropUrl}')`;
+        } else {
+          el.hero.style.background = 'linear-gradient(90deg,#0b1220,#071226)';
+        }
+
+        // Poster
+        el.poster.src = movie.posterUrl || '';
+        el.poster.alt = movie.title || 'Poster';
+
+        safeText(el.title, movie.title || 'Untitled');
+        safeText(el.titleLong, movie.titleLong || '');
+        safeText(el.tagline, movie.tagline || '');
+
+        // Buttons: homepage & tmdb
+        if (movie.homepage) {
+          el.homepageBtn.href = movie.homepage;
+          el.homepageBtn.classList.remove('d-none');
+        } else {
+          el.homepageBtn.classList.add('d-none');
+        }
+        if (movie.tmdbId) {
+          el.tmdbBtn.href = `https://www.themoviedb.org/${movie.type || 'movie'}/${movie.tmdbId}`;
+          el.tmdbBtn.classList.remove('d-none');
+        } else {
+          el.tmdbBtn.classList.add('d-none');
+        }
+
+        // Meta badges
+        el.metaBadges.innerHTML = '';
+        const badges = [];
+        if (movie.type) badges.push(createBadge(movie.type.toUpperCase()));
+        if (movie.year) badges.push(createBadge(String(movie.year)));
+        if (movie.mpaRating) badges.push(createBadge(movie.mpaRating));
+        if (movie.runtime) badges.push(createBadge(fmtRuntime(movie.runtime)));
+        badges.forEach(b => el.metaBadges.appendChild(b));
+
+        safeText(el.type, movie.type || '-');
+        safeText(el.year, movie.year || '-');
+        safeText(el.runtime, movie.runtime ? fmtRuntime(movie.runtime) : 'N/A');
+        safeText(el.mpaRating, movie.mpaRating || '-');
+        safeText(el.voteAverage, movie.voteAverage !== undefined ? String(movie.voteAverage) : '-');
+        safeText(el.voteCount, movie.voteCount || 0);
+        safeText(el.popularity, movie.popularity !== undefined ? String(Math.round(movie.popularity)) : '-');
+        safeText(el.next_update, fmtDate(movie.next_update));
+
+        // Genres
+        el.genres.innerHTML = '';
+        (movie.genres || []).forEach(g => {
+          const s = document.createElement('span');
+          s.className = 'badge badge-muted px-2 py-1';
+          s.textContent = g;
+          el.genres.appendChild(s);
+        });
+
+        // Production info
+        el.productionCompanies.textContent = (movie.productionCompanies || []).join(', ') || '-';
+        el.productionCountries.textContent = (movie.productionCountries || []).join(', ') || '-';
+        el.spokenLanguages.textContent = (movie.spokenLanguages || []).join(', ') || '-';
+
+        // Recommendations
+        el.recommendations.innerHTML = '';
+        (movie.recommendations || []).forEach(rec => {
+          const col = document.createElement('div');
+          col.className = 'col';
+          const a = document.createElement('a');
+          a.href = `/${rec.type || 'movie'}/${rec.id || '#'}`;
+          a.className = 'card card-dark h-100 card-link text-decoration-none';
+          a.innerHTML = `
+                        <img src="${rec.posterUrl || ''}" class="card-img-top" alt="${escapeHtml(rec.title || '')}" style="height:180px;object-fit:cover;">
+                        <div class="card-body p-2">
+                            <div class="fw-semibold small">${escapeHtml(rec.title || '')}</div>
+                            <div class="muted small">${rec.voteAverage ? rec.voteAverage : ''}</div>
+                        </div>`;
+          col.appendChild(a);
+          el.recommendations.appendChild(col);
+        });
+
+        // Seasons & episodes (only for TV)
+        buildSeasons();
+
+        // Movie-specific watch/download handling:
+        // top-level videoUrl or downloadUrl may exist, otherwise try to use first video (YouTube) or first season/episode videoUrl
+        videoUrl = movie.videoUrl;
+        downloadUrl = movie.downloadUrl;
+
+        if (!videoUrl && movie.seasons && movie.seasons.length) {
+
+          // try first episode
+          const eps = movie.seasons[0].episodes || [];
+
+          if (eps.length && eps[0].videoUrl) {
+            videoUrl = eps[0].videoUrl;
+            downloadUrl = eps[0].downloadUrl || downloadUrl;
+          }
+        }
+
+        if (!videoUrl && Array.isArray(movie.videos) && movie.videos.length) {
+          // for YouTube trailers prefer modal embed
+          const first = movie.videos[0];
+          if (first.site === 'YouTube' && first.key) {
+            videoUrl = `youtube:${first.key}`; // marker for youtube
+          }
+        }
+
+        // Watch button behavior: shown if we have a playable resource
+        if (videoUrl) {
+          el.watchBtn.classList.remove('d-none');
+          // otherwise try to play as video element (mp4/hls fallback: browser support required)
+          const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+          if (!videoPlayerContainer) return;
+          videoPlayerContainer.innerHTML = `
+      <video id="videoPlayer" class="stream-video" muted playsinline controls
+        style="width:100%;max-height:90vh;background:#000;">
+        <source src="${escapeHtml(videoUrl)}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>`;
+          el.watchBtn.onclick = function (e) {
+            e.preventDefault();
+            if (String(videoUrl).startsWith('youtube:')) {
+              const key = String(videoUrl).split(':', 2)[1];
+              openYouTube(key);
+            } else {
+              // try to play inline in hero (mp4 or other)
+              loadMovie();
+            }
+            return false;
+          };
+        } else {
+          el.watchBtn.classList.add('d-none');
+        }
+        // download buttons
+        if (downloadUrl) {
+          el.downloadBtnHero.href = downloadUrl;
+          el.downloadBtnHero.classList.remove('d-none');
+          el.downloadBtn.href = downloadUrl;
+          el.downloadBtn.classList.remove('d-none');
+        } else {
+          el.downloadBtnHero.classList.add('d-none');
+          el.downloadBtn.classList.add('d-none');
+        }
+
+        // populate details modal content
+        buildDetailsModal();
+      }
+
+      function buildSeasons() {
+        el.seasonsContainer.innerHTML = '';
+        const seasons = movie.seasons || [];
+        if (!seasons.length) return;
+
+        const seasonsTab = document.createElement('div');
+        seasonsTab.id = 'seasonsTab';
+        seasonsTab.className = 'seasons-tab';
+
+        const seasonBody = document.createElement('season-body');
+        seasonBody.innerHTML = `<div class="g-3" id="season-items"></div>`;
+
+        seasons.forEach((season, idx) => {
+          const seasonId = `season-${idx}`;
+          const card = document.createElement('div');
+          card.className = 'seasons-tab-item card-dark';
+          card.innerHTML = `
+                        <button class="seasons-tab-button collapsed bg-transparent text-start" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${seasonId}" aria-expanded="false" aria-controls="collapse-${seasonId}">
+                                ${escapeHtml(season.name || `Season ${season.seasonNumber || ''}`)}
+                            </button>`;
+          seasonsTab.appendChild(card);
+
+          card.addEventListener("click", async (e) => {
+
+            document.querySelectorAll('seasons-tab-item').forEach((e) => {
+              e.classList.remove('active');
+            })
+            card.classList.add('active');
+
+            const container = document.querySelector(`#season-items`);
+
+            container.innerHTML = "";
+
+            // populate episodes inside
+            (season.episodes || []).forEach(ep => {
+              const epDiv = document.createElement('div');
+              epDiv.className = 'w-100';
+
+              epDiv.addEventListener("click", async (e) => loadEpisode(ep));
+
+              epDiv.innerHTML = `
+                            <div class="card w-100 h-100 card-dark p-2 episode-card">
+                                <div class="d-flex gap-2">
+                                    <img src="${ep.stillUrl || ''}" alt="${escapeHtml(ep.name)}" style="width:120px;height:70px;object-fit:cover;border-radius:6px;">
+                                    <div>
+                                        <div class="fw-semibold">${escapeHtml(ep.name)}</div>
+                                        <div class="muted small">${fmtDate(ep.airDate)} • ${ep.runtime ? fmtRuntime(ep.runtime) : '-'}</div>
+                                    </div>
+                                </div>
+                                                                      
+                                <div class="ep-synopsis-">${escapeHtml(ep.synopsis)}</div>
+
+                            </div>`;
+              container.appendChild(epDiv);
+
+            });
+
+          });
+        });
+        el.seasonsContainer.appendChild(seasonsTab);
+        el.seasonsContainer.appendChild(seasonBody);
+      }
+
+      function loadEpisode(ep) {
+
+        downloadUrl = ep.downloadUrl;
+        if (videoUrl === ep.videoUrl) return;
+        videoUrl = ep.videoUrl;
+        const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+        if (!videoPlayerContainer) return;
+        videoPlayerContainer.innerHTML = `
+      <video id="videoPlayer" class="stream-video" muted playsinline controls
+        style="width:100%;max-height:90vh;background:#000;">
+        <source src="${escapeHtml(videoUrl)}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>`; // scroll to top to view player
+        document.getElementById('watchSection').classList.remove('d-none');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Play inline video in hero area. For external/youtube, use modal.
+      function loadMovie() {
+
+        document.getElementById('watchSection').classList.remove('d-none');
+
+        const video = document.getElementById("videoPlayer");
+
+        video.muted = false;  // Optional: unmute when playing
+        video.play().catch(err => {
+          console.log("Playback failed:", err);
+        });
+
+        // scroll to top to view player
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      // expose globally for inline onclicks created earlier
+      window.loadMovie = loadMovie;
+
+      function extractYouTubeKey(url) {
+        try {
+          const u = new URL(url);
+          if (u.hostname.includes('youtu.be')) {
+            return u.pathname.slice(1);
+          }
+          if (u.hostname.includes('youtube.com')) {
+            return u.searchParams.get('v');
+          }
+        } catch (e) {
+          // not a full URL, maybe it's just a key already
+          if (/^[A-Za-z0-9_-]{6,}$/.test(url)) return url;
+        }
+        return null;
+      }
+
+      function openYouTube(key) {
+        if (!key) return;
+        // clear previous
+        el.playerContainer.innerHTML = '';
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${encodeURIComponent(key)}?rel=0&modestbranding=1`;
+        iframe.title = 'YouTube player';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        el.playerContainer.appendChild(iframe);
+        const modal = new bootstrap.Modal(document.getElementById('playerModal'));
+        modal.show();
+      }
+
+      function buildDetailsModal() {
+        if (!el.detailsContent) return;
+        el.detailsContent.innerHTML = '';
+
+        // top row: synopsis + metadata
+        const top = document.createElement('div');
+        top.className = 'mb-3';
+        top.innerHTML = `
+          <div class="row g-3">
+            <div class="col-md-8">
+              <h5>${escapeHtml(movie.title || '')}</h5>
+              <div class="muted small mb-2">${escapeHtml(movie.titleLong || '')}</div>
+              <p>${escapeHtml(movie.synopsis || 'No synopsis available.')}</p>
+            </div>
+            <div class="col-md-4">
+              <div class="mb-2"><strong>Type:</strong> ${escapeHtml(movie.type || '-')}</div>
+              <div class="mb-2"><strong>Year:</strong> ${escapeHtml(movie.year || '-')}</div>
+              <div class="mb-2"><strong>Runtime:</strong> ${movie.runtime ? fmtRuntime(movie.runtime) : 'N/A'}</div>
+              <div class="mb-2"><strong>Rating:</strong> ${escapeHtml(movie.mpaRating || '-')}</div>
+              <div class="mb-2"><strong>Votes:</strong> ${escapeHtml(String(movie.voteCount || 0))}</div>
+            </div>
+          </div>`;
+        el.detailsContent.appendChild(top);
+
+        // genres
+        const gdiv = document.createElement('div');
+        gdiv.className = 'mb-3';
+        gdiv.innerHTML = `<div class="muted mb-1">Genres</div>`;
+        const gg = document.createElement('div');
+        (movie.genres || []).forEach(g => {
+          const s = document.createElement('span');
+          s.className = 'badge badge-muted px-2 py-1 me-1';
+          s.textContent = g;
+          gg.appendChild(s);
+        });
+        gdiv.appendChild(gg);
+        el.detailsContent.appendChild(gdiv);
+
+        // production
+        const prod = document.createElement('div');
+        prod.className = 'mb-3';
+        prod.innerHTML = `<div class="muted mb-1">Production Companies</div><div>${escapeHtml((movie.productionCompanies || []).join(', ') || '-')}</div>
+          <div class="muted mb-1 mt-2">Countries</div><div>${escapeHtml((movie.productionCountries || []).join(', ') || '-')}</div>
+          <div class="muted mb-1 mt-2">Languages</div><div>${escapeHtml((movie.spokenLanguages || []).join(', ') || '-')}</div>`;
+        el.detailsContent.appendChild(prod);
+
+
+        // videos - list with play buttons
+        const vids = document.createElement('div');
+        vids.className = 'mb-3';
+        vids.innerHTML = `<div class="muted mb-1">Videos & Trailers</div>`;
+        const vwrap = document.createElement('div');
+        vwrap.className = 'row g-2';
+        (movie.videos || []).forEach(v => {
+          const col = document.createElement('div');
+          col.className = 'col-12 col-md-6';
+          const card = document.createElement('div');
+          card.className = 'card card-dark p-2';
+          const inner = document.createElement('div');
+          inner.className = 'd-flex align-items-center gap-2';
+          if (v.site === 'YouTube' && v.key) {
+            const thumb = document.createElement('img');
+            thumb.src = `https://img.youtube.com/vi/${encodeURIComponent(v.key)}/hqdefault.jpg`;
+            thumb.style.width = '160px';
+            thumb.style.height = '90px';
+            thumb.style.objectFit = 'cover';
+            thumb.style.borderRadius = '6px';
+            thumb.className = 'me-2';
+            inner.appendChild(thumb);
+
+            const div = document.createElement('div');
+            div.innerHTML = `<div class="fw-semibold small">${escapeHtml(v.name || '')}</div><div class="muted small">${escapeHtml(v.site || '')}</div>`;
+            inner.appendChild(div);
+
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-sm btn-outline-light ms-auto';
+            btn.textContent = 'Play';
+            btn.addEventListener('click', () => openYouTube(v.key));
+            inner.appendChild(btn);
+          } else {
+            inner.innerHTML = `<div class="muted small">No preview</div>`;
+          }
+          card.appendChild(inner);
+          const titleDiv = document.createElement('div');
+          titleDiv.className = 'mt-2 small';
+          titleDiv.textContent = v.name || '';
+          card.appendChild(titleDiv);
+          col.appendChild(card);
+          vwrap.appendChild(col);
+        });
+        vids.appendChild(vwrap);
+        el.detailsContent.appendChild(vids);
+
+        // cast & crew (compact)
+        const cc = document.createElement('div');
+        cc.className = 'mb-3';
+        cc.innerHTML = `<div class="row g-3">
+          <div class="col-md-6"><div class="muted mb-1">Cast</div><div id="modalCast"></div></div>
+          <div class="col-md-6"><div class="muted mb-1">Crew</div><div id="modalCrew"></div></div>
+        </div>`;
+        el.detailsContent.appendChild(cc);
+        const modalCast = document.getElementById('modalCast');
+        const modalCrew = document.getElementById('modalCrew');
+        (movie.casts || []).forEach(c => {
+          const item = document.createElement('div');
+          item.className = 'd-flex align-items-center gap-2 mb-2';
+          item.innerHTML = `<img src="${c.profilePath || ''}" alt="${escapeHtml(c.name || '')}" style="width:48px;height:48px;object-fit:cover;border-radius:6px;">
+            <div><div class="fw-semibold small">${escapeHtml(c.name || '')}</div><div class="muted small">${escapeHtml(c.character || '')}</div></div>`;
+          modalCast.appendChild(item);
+        });
+        (movie.crew || []).forEach(c => {
+          const item = document.createElement('div');
+          item.className = 'd-flex align-items-center gap-2 mb-2';
+          item.innerHTML = `<img src="${c.profilePath || ''}" alt="${escapeHtml(c.name || '')}" style="width:48px;height:48px;object-fit:cover;border-radius:6px;">
+            <div><div class="fw-semibold small">${escapeHtml(c.name || '')}</div><div class="muted small">${escapeHtml(c.job || '')}</div></div>`;
+          modalCrew.appendChild(item);
+        });
+
+
+        // providers
+        const prov = document.createElement('div');
+        prov.className = 'mb-3';
+        prov.innerHTML = `<div class="muted mb-1">Watch Providers</div>`;
+        const prow = document.createElement('div');
+        prow.className = 'd-flex gap-2 flex-wrap';
+        (movie.watchProviders || []).forEach(p => {
+          const d = document.createElement('div');
+          d.className = 'd-flex align-items-center gap-2 card-dark p-2';
+          d.style.minWidth = '180px';
+          d.innerHTML = `<img src="${p.logo || ''}" alt="${escapeHtml(p.provider_name)}" style="height:36px;object-fit:contain;border-radius:6px;">
+                         <div class="small"><strong>${escapeHtml(p.provider_name)}</strong><div class="muted small">${escapeHtml(p.type || '')}</div></div>`;
+          prow.appendChild(d);
+        });
+        prov.appendChild(prow);
+        el.detailsContent.appendChild(prov);
+
+
+      }
+
+      // Attempt fetch then fallback to sample
+      let movie = null;
+      (async function load() {
+        try {
+          if (API_URL) {
+            const headers = {
+            };
+
+            const res = await fetch(API_URL, { headers, credentials: 'same-origin' });
+
+            if (!res.ok) throw new Error('Network response not ok');
+            movie = await res.json();
+          } else {
+            alert('No movie Id passed');
+            return;
+          }
+        } catch (err) {
+          console.warn('Failed to fetch API — using sample data.', err);
+          return;
+        } finally {
+          build();
+          hideLoading();
+        }
+      })();
+
+    })();
+  </script>
+
+  <script src="/footer.js" defer></script>
+</body>
+
+</html>
